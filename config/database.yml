@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  username: postgres
+  database: flex_coast_api_development
+
+test:
+  <<: *default
+  username: postgres
+  database: flex_coast_api_test
+
+production:
+  <<: *default
+  database: flex_coast_api_production
+  username: flex_coast_api
+  password: <%= ENV['FLEX_COAST_API_DATABASE_PASSWORD'] %>
