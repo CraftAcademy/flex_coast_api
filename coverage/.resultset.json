@@ -1,23 +1,23 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/demerzel/Projects/flex_coast/flex_coast_api/app/channels/application_cable/channel.rb": [
+      "/home/lucas/craft/flex_coast/flex_coast_api/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/demerzel/Projects/flex_coast/flex_coast_api/app/channels/application_cable/connection.rb": [
+      "/home/lucas/craft/flex_coast/flex_coast_api/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/demerzel/Projects/flex_coast/flex_coast_api/app/controllers/application_controller.rb": [
+      "/home/lucas/craft/flex_coast/flex_coast_api/app/controllers/application_controller.rb": [
         0,
         0
       ],
-      "/home/demerzel/Projects/flex_coast/flex_coast_api/app/jobs/application_job.rb": [
+      "/home/lucas/craft/flex_coast/flex_coast_api/app/jobs/application_job.rb": [
         0,
         null,
         null,
@@ -26,18 +26,18 @@
         null,
         0
       ],
-      "/home/demerzel/Projects/flex_coast/flex_coast_api/app/mailers/application_mailer.rb": [
+      "/home/lucas/craft/flex_coast/flex_coast_api/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/demerzel/Projects/flex_coast/flex_coast_api/app/models/application_record.rb": [
+      "/home/lucas/craft/flex_coast/flex_coast_api/app/models/application_record.rb": [
         0,
         0,
         0
       ]
     },
-    "timestamp": 1622634902
+    "timestamp": 1622660450
   }
 }
