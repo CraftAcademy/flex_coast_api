@@ -17,5 +17,13 @@ module FlexCoastApi
   class Application < Rails::Application
     config.load_defaults 6.1
     config.api_only = true
+    config.generators do |generate|
+      generate.helper false
+      generate.assets false
+      generate.skip_routes false
+      generate.routing_specs false
+      generate.controller_specs false
+      generate.request_specs false
+    end
   end
 end
