@@ -1,7 +1,21 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
+  let(:inquiry) { create(:inquiry) }
+
   describe 'successfully' do
     before do
-      post '/api/inquiries'
+      post '/api/inquiries',
+           params: {
+             inquiry: {
+               size: 1,
+               type: true,
+               company: 'Craft',
+               peers: true,
+               email: 'example@example.com',
+               date: '2021-06-05',
+               flexible: true,
+               phone: 0o707123456
+             }
+           }
     end
 
     it 'is expected to return a 200 status' do
