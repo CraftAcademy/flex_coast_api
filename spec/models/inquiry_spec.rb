@@ -22,4 +22,10 @@ RSpec.describe Inquiry, type: :model do
     it { is_expected.to validate_presence_of :flexible }
     it { is_expected.to validate_presence_of :phone }
   end
+
+  describe 'Factory' do
+    it'should have valid factory' do
+      expect(create(:inquiry)).to be_valid
+    end
+  end
 end
