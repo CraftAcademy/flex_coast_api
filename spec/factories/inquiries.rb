@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :inquiry do
-    integer { "" }
-    boolean { "" }
-    string { "" }
-    boolean { "" }
-    string { "" }
-    array { "" }
+    size { 1 }
+    type { false }
+    company { "MyString" }
+    peers { false }
+    email { "MyString" }
+    location { "" }
     date { "2021-06-05" }
-    boolean { "" }
-    integer { "" }
+    flexible { false }
+    phone { 1 }
   end
 end
