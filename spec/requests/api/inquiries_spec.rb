@@ -5,7 +5,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
            params: {
              form_data: {
                size: 1,
-               variants: true,
+               variants: 'office',
                company: 'Craft',
                peers: true,
                email: 'example@example.com',
@@ -37,7 +37,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
            params: {
              form_data: {
                size: 1,
-               variants: true,
+               variants: 'office',
                company: 'Craft',
                peers: true,
                email: '',
