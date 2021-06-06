@@ -9,6 +9,11 @@ class Api::InquiriesController < ApplicationController
     end
   end
 
+  def index
+    inquiries = Inquiry.all
+    render json: {inquiries: inquiries}, status: 200
+  end
+
   private
 
   def inquiry_params

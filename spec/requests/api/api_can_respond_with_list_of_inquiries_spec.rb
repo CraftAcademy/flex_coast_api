@@ -1,4 +1,5 @@
 RSpec.describe 'GET /api/inquiries', type: :request do
+  let!(:inquiry) {3.times{create(:inquiry)}}
   describe 'successfully' do
     before do
       get '/api/inquiries'
@@ -21,7 +22,7 @@ RSpec.describe 'GET /api/inquiries', type: :request do
     end
 
     it 'is expected to include the inquiry\'s company name' do
-      expect(response_json['inquiries'].first['company']).to eq 'Company1'
+      expect(response_json['inquiries'].first['company']).to eq 'Company'
     end
 
     it 'is expected to include the inquiry\'s peer request' do
@@ -29,7 +30,7 @@ RSpec.describe 'GET /api/inquiries', type: :request do
     end
 
     it 'is expected to include the inquiry\'s email' do
-      expect(response_json['inquiries'].first['email']).to eq 'mrfake1@fake.com' 
+      expect(response_json['inquiries'].first['email']).to eq 'mrfake@fake.com' 
     end
 
     it 'is expected to include the inquiry\'s peer request' do
