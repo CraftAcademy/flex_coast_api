@@ -8,6 +8,9 @@ RSpec.describe Inquiry, type: :model do
     it { is_expected.to have_db_column(:flexible).of_type(:boolean) }
     it { is_expected.to have_db_column(:phone).of_type(:integer) }
     it { is_expected.to have_db_column(:start_date).of_type(:string) }
+    it 'is expected to have db column locations of type array' do
+      expect(subject[:locations]).kind_of?(Array)
+    end
   end
 
   describe 'Validations' do
