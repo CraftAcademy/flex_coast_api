@@ -5,15 +5,14 @@ RSpec.describe 'POST /api/inquiries', type: :request do
            params: {
              form_data: {
                size: 1,
-               variants: 'office',
+               office_type: 'office',
                company: 'Craft',
                peers: true,
                email: 'example@example.com',
-               date: '2021-06-05',
                flexible: true,
                phone: 0o707123456,
                locations: ['Gothenburg City', 'Southside'],
-               start_date: '21-06-21'
+               start_date: '2021-06-21'
              }
            }
     end
@@ -37,14 +36,14 @@ RSpec.describe 'POST /api/inquiries', type: :request do
            params: {
              form_data: {
                size: 1,
-               variants: 'office',
+               office_type: 'office',
                company: 'Craft',
                peers: true,
                email: '',
                flexible: true,
                phone: 0o707123456,
                locations: ['Gothenburg City', 'Southside'],
-               start_date: '21-06-21'
+               start_date: '2021-06-21'
              }
            }
     end

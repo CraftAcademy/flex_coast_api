@@ -1,14 +1,15 @@
-class CreateInquiries < ActiveRecord::Migration[6.1]
+class CreateInquiry < ActiveRecord::Migration[6.1]
   def change
     create_table :inquiries do |t|
       t.integer :size
-      t.boolean :type
+      t.integer :office_type
       t.string :company
       t.boolean :peers
       t.string :email
-      t.date :date
+      t.string :start_date
       t.boolean :flexible
       t.integer :phone
+      t.string :locations, array: true
 
       t.timestamps
     end
