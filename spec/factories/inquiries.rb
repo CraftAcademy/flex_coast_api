@@ -6,6 +6,7 @@ FactoryBot.define do
     peers { true }
     sequence(:email) { |n| "mrfake#{n}@fake.com" }
     flexible { true }
+    start_date {''}
     phone { 0707123456 }
   end
 end

@@ -1,5 +1,4 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
-
   describe 'successfully' do
     before do
       post '/api/inquiries',
@@ -12,8 +11,9 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                email: 'example@example.com',
                date: '2021-06-05',
                flexible: true,
-               phone: 0707123456,
-               locations: ['Gothenburg City', 'Southside']
+               phone: 0o707123456,
+               locations: ['Gothenburg City', 'Southside'],
+               start_date: '21-06-21'
              }
            }
     end
@@ -42,8 +42,9 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                peers: true,
                email: '',
                flexible: true,
-               phone: 0707123456,
-               locations: ['Gothenburg City', 'Southside']
+               phone: 0o707123456,
+               locations: ['Gothenburg City', 'Southside'],
+               start_date: '21-06-21'
              }
            }
     end
