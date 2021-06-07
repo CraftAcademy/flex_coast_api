@@ -2,10 +2,11 @@ class Api::InquiriesController < ApplicationController
   def create
     inquiry = Inquiry.create(inquiry_params)
 
-    if inquiry.persisted? 
+    if inquiry.persisted?
       render json: { message: 'Thanks for your answers! We\'ll be in touch' }
-    else 
-      render json: { error_message: 'Unfortunately, we had a small issue processing your request. Would you please try again?' }, status: 422
+    else
+      render json: { error_message: 'Unfortunately, we had a small issue processing your request. Would you please try again?' },
+             status: 422
     end
   end
 
@@ -14,9 +15,16 @@ class Api::InquiriesController < ApplicationController
     render json: inquiries, each_serializer: InquiriesIndexSerializer
   end
 
+  def update
+    inquiry = Inquiry.find(params[:id])
+    inquiry.update(inquiry_status: params[:form_data][:inquiry_status])
+    render json: { inquiry: inquiry, message: 'Inquiry has been updated' }
+  end
+
   private
 
   def inquiry_params
-    params.require(:form_data).permit(:size, :office_type, :company, :peers, :email, :flexible, :phone, locations: [])
+    params.require(:form_data).permit(:size, :office_type, :inquiry_status, :company, :peers, :email, :flexible,
+                                      :phone, locations: [])
   end
 end
