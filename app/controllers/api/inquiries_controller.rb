@@ -18,7 +18,11 @@ class Api::InquiriesController < ApplicationController
   def update
     inquiry = Inquiry.find(params[:id])
     inquiry.update(inquiry_status: params[:form_data][:inquiry_status])
-    render json: { inquiry: inquiry, message: 'Inquiry has been updated' }
+    if params[:inquiry_status]
+      render json: { inquiry: inquiry, message: 'Inquiry has been updated' }, status: 200
+    else
+      render json: { message: 'Inquiry has not been updated' }, status: 422
+    end
   end
 
   private
