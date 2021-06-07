@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :inquiry do
     size { 5 }
     office_type { 1 }
+    inquiry_status { 1 }
     company { "Company" }
     peers { true }
     email { "mrfake@fake.com" }
