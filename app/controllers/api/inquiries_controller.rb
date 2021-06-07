@@ -1,4 +1,5 @@
 class Api::InquiriesController < ApplicationController
+
   def create
     inquiry = Inquiry.create(inquiry_params)
 
@@ -12,6 +13,12 @@ class Api::InquiriesController < ApplicationController
   def index
     inquiries = Inquiry.all
     render json: inquiries, each_serializer: InquiriesIndexSerializer
+  end
+
+  def update
+    inquiry = Inquiry.find(params[:id])
+    inquiry.update(inquiry_status: params[:form_data][:inquiry_status])
+    render json: { inquiry: inquiry, message:'Inquiry has been updated'}
   end
 
   private
