@@ -8,6 +8,7 @@ RSpec.describe Inquiry, type: :model do
     it { is_expected.to have_db_column(:flexible).of_type(:boolean) }
     it { is_expected.to have_db_column(:phone).of_type(:integer) }
     it { is_expected.to have_db_column(:start_date).of_type(:string) }
+    it { is_expected.to have_db_column(:inquiry_status).of_type(:integer) }
     it 'is expected to have db column locations of type array' do
       expect(subject[:locations]).kind_of?(Array)
     end
@@ -19,6 +20,10 @@ RSpec.describe Inquiry, type: :model do
 
   describe 'Office type' do
     it { is_expected.to define_enum_for(:office_type).with_values({ office: 1, open_space: 2}) }
+  end
+
+  describe 'Inquiry status' do
+    it { is_expected.to define_enum_for(:inquiry_status).with_values({ pending: 1, started: 2, done: 3}) }
   end
 
   describe 'Factory' do
