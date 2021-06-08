@@ -3,6 +3,6 @@ class InquiryMailer < ApplicationMailer
   def created_email(data)
     @inquiry = data
     @user = 'broker@flexcoast.com'
-    mail(to: @user, subject: 'New inquiry, 2021-06-21')
+    mail(to: @user, subject: "New inquiry, #{@inquiry.start_date}")
   end
 end
