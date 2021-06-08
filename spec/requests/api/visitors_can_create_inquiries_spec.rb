@@ -1,6 +1,6 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
   describe 'successfully' do
-    let!(:mail_delivery){ ActionMailer::Base.deliveries }
+    let!(:mail_delivery) { ActionMailer::Base.deliveries }
     before do
       post '/api/inquiries',
            params: {
@@ -35,11 +35,11 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       it 'is expected to send off email address of the sender' do
         expect(mail_delivery[0].from).to include('notification@flexcoast.com')
       end
-  
+
       it 'is expedted to return details of inquiry in subject' do
         expect(mail_delivery[0].subject).to include('New inquiry, 2021-06-21')
       end
-  
+
       describe 'is expected to have inquiry detals in the body regarding' do
         it 'size' do
           expect(mail_delivery[0].body).to include('1')
@@ -92,7 +92,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                peers: true,
                email: '',
                flexible: true,
-               phone: 0707123456,
+               phone: 0o707123456,
                locations: ['Gothenburg City', 'Southside'],
                start_date: '2021-06-21'
              }
