@@ -25,7 +25,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
     before do
       put "/api/inquiries/#{inquiry.id}",
           params: {
-            form_data: { inquiry_status: '' }
+            form_data: { inquiry_status: 'Your mom' }
           }
     end
 
@@ -34,7 +34,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
     end
 
     it 'is expected to return error message' do
-      expect(response_json['message']).to eq 'Inquiry has not been updated'
+      expect(response_json['message']).to eq "'Your mom' is not a valid inquiry_status"
     end
   end
 end
