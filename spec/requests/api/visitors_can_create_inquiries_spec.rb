@@ -6,11 +6,12 @@ RSpec.describe 'POST /api/inquiries', type: :request do
              form_data: {
                size: 1,
                office_type: 'office',
+               inquiry_status: 'pending',
                company: 'Craft',
                peers: true,
                email: 'example@example.com',
                flexible: true,
-               phone: 0o707123456,
+               phone: 0707123456,
                locations: ['Gothenburg City', 'Southside'],
                start_date: '2021-06-21'
              }
@@ -37,11 +38,12 @@ RSpec.describe 'POST /api/inquiries', type: :request do
              form_data: {
                size: 1,
                office_type: 'office',
+               inquiry_status: 'pending',
                company: 'Craft',
                peers: true,
                email: '',
                flexible: true,
-               phone: 0o707123456,
+               phone: 0707123456,
                locations: ['Gothenburg City', 'Southside'],
                start_date: '2021-06-21'
              }
