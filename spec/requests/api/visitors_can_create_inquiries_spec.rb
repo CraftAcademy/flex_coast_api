@@ -1,8 +1,7 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
   describe 'successfully' do
     let(:mail_delivery) { ActionMailer::Base.deliveries }
-    let(:client) { SlackNotify::Client.new('www.test.com') }
-
+    let(:client) { SlackNotify::Client.new(webhook_url: 'www.test.com') }
 
     before do
       client.stub(:notify)
@@ -16,7 +15,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                peers: true,
                email: 'example@example.com',
                flexible: true,
-               phone: 0707123456,
+               phone: 0o707123456,
                locations: ['Gothenburg City', 'Southside'],
                start_date: '2021-06-21'
              }
@@ -36,7 +35,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     end
 
     it 'is expected to send off slack notification' do
-      expect(client).to have_received(:notify).with('You have a new inquiry')
+      expect(client).to have_received(:notify).with('New Inquiry From Craft In Your Inbox')
     end
 
     describe 'outgoing email' do
@@ -74,7 +73,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         end
 
         it 'phone' do
-          expect(mail_delivery[0].body).to include(0707123456)
+          expect(mail_delivery[0].body).to include(0o707123456)
         end
 
         it 'location' do
@@ -100,7 +99,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                peers: true,
                email: '',
                flexible: true,
-               phone: 0707123456,
+               phone: 0o707123456,
                locations: ['Gothenburg City', 'Southside'],
                start_date: '2021-06-21'
              }
