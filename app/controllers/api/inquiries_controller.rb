@@ -3,7 +3,6 @@ class Api::InquiriesController < ApplicationController
     inquiry = Inquiry.create(inquiry_params)
 
     if inquiry.persisted?
-      InquiryMailer.created_email(inquiry).deliver
       render json: { message: 'Thanks for your answers! We\'ll be in touch' }
     else
       render json: { error_message: 'Unfortunately, we had a small issue processing your request. Would you please try again?' },

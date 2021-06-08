@@ -47,42 +47,34 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
         it 'office type' do
           expect(mail_delivery[0].body).to include('office')
-
         end
 
         it 'company' do
           expect(mail_delivery[0].body).to include('Craft')
-
         end
 
         it 'peers' do
           expect(mail_delivery[0].body).to include('true')
-
         end
 
         it 'email' do
           expect(mail_delivery[0].body).to include('example@example.com')
-
         end
 
         it 'flexible' do
           expect(mail_delivery[0].body).to include('true')
-
         end
 
         it 'phone' do
           expect(mail_delivery[0].body).to include(0707123456)
-
         end
 
         it 'location' do
           expect(mail_delivery[0].body).to include('Gothenburg City', 'Southside')
-
         end
 
         it 'start date' do
           expect(mail_delivery[0].body).to include('2021-06-21')
-
         end
       end
     end
