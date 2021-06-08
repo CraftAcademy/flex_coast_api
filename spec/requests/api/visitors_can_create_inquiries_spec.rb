@@ -92,7 +92,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                peers: true,
                email: '',
                flexible: true,
-               phone: 0o707123456,
+               phone: 0707123456,
                locations: ['Gothenburg City', 'Southside'],
                start_date: '2021-06-21'
              }
