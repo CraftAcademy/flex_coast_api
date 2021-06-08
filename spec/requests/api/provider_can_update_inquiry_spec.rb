@@ -1,5 +1,5 @@
 RSpec.describe 'PUT /api/inquiries/:id', type: :request do
-  let!(:inquiry) { create(:inquiry, inquiry_status: 'pending') }
+  let(:inquiry) { create(:inquiry, inquiry_status: 'pending') }
   describe 'successfully updated' do
     before do
       put "/api/inquiries/#{inquiry.id}",
