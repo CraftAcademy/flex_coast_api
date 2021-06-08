@@ -1,7 +1,11 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
   describe 'successfully' do
-    let!(:mail_delivery) { ActionMailer::Base.deliveries }
+    let(:mail_delivery) { ActionMailer::Base.deliveries }
+    let(:client) { SlackNotify::Client.new('www.test.com') }
+
+
     before do
+      client.stub(:notify)
       post '/api/inquiries',
            params: {
              form_data: {
@@ -29,6 +33,10 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
     it 'is expected to have created a new Inquiry' do
       expect(Inquiry.all.count).to eq 1
+    end
+
+    it 'is expected to send off slack notification' do
+      expect(client).to have_received(:notify).with('You have a new inquiry')
     end
 
     describe 'outgoing email' do

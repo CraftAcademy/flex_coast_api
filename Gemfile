@@ -9,6 +9,8 @@ gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'rack-cors', require: 'rack/cors'
 gem 'active_model_serializers'
+gem "slack-notify"
+
 
 group :development, :test do
   gem 'coveralls', require: false
