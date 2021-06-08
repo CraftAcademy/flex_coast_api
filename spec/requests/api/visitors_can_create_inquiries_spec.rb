@@ -1,6 +1,6 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
   describe 'successfully' do
-    let!(:mail_delivery){ ActionMailer::Base.deliveries[0] }
+    let!(:mail_delivery){ ActionMailer::Base.deliveries }
     before do
       post '/api/inquiries',
            params: {
@@ -33,6 +33,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
     describe 'outgoing email' do
       it 'is expected to send off email address of the sender' do
+        binding.pry
         expect(mail_delivery.from).to include('notification@flexcoast.com')
       end
   

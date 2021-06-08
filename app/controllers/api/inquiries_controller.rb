@@ -4,6 +4,7 @@ class Api::InquiriesController < ApplicationController
 
     if inquiry.persisted?
       # send off inquiry mail to broker 
+      InquiryMailer.created_email(inquiry).deliver
       render json: { message: 'Thanks for your answers! We\'ll be in touch' }
     else
       render json: { error_message: 'Unfortunately, we had a small issue processing your request. Would you please try again?' },
