@@ -71,7 +71,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         end
 
         it 'phone' do
-          expect(mail_delivery[0].body).to include('0707123456')
+          expect(mail_delivery[0].body).to include(0707123456)
 
         end
 

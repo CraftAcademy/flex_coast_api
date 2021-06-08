@@ -28,7 +28,7 @@ class Api::InquiriesController < ApplicationController
   private
 
   def inquiry_params
-    params.require(:form_data).permit(:size, :office_type, :inquiry_status, :company, :peers, :email, :flexible,
+    params.require(:form_data).permit(:size, :office_type, :inquiry_status, :company, :start_date, :peers, :email, :flexible,
                                       :phone, locations: [])
   end
 end
