@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Dear, <%= @user %></h1>
+    <p>
+      You have a new inquiry!<br>
+    </p>
+    <p>
+      Details:
+    </p>
+    <ul> 
+      <li> Size: <%= @inquiry.size %></li>
+      <li> Office type: <%= @inquiry.office_type %></li>
+      <li> Company: <%= @inquiry.company %></li>
+      <li> Peers: <%= @inquiry.peers %></li>
+      <li> Email: <%= @inquiry.email %></li>
+      <li> Flexible: <%= @inquiry.flexible %></li>
+      <li> Phone: <%= @inquiry.phone %></li>
+      <li> Locations: <%= @inquiry.locations %></li>
+      <li> Start date: <%= @inquiry.start_date %></li>
+    </ul>
+  </body>
+</html>
