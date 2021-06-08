@@ -33,56 +33,55 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
     describe 'outgoing email' do
       it 'is expected to send off email address of the sender' do
-        binding.pry
-        expect(mail_delivery.from).to include('notification@flexcoast.com')
+        expect(mail_delivery[0].from).to include('notification@flexcoast.com')
       end
   
       it 'is expedted to return details of inquiry in subject' do
-        expect(mail_delivery.subject).to include('New inquiry, 2021-06-21')
+        expect(mail_delivery[0].subject).to include('New inquiry, 2021-06-21')
       end
   
       describe 'is expected to have inquiry detals in the body regarding' do
         it 'size' do
-          expect(mail_delivery.body).to include('1')
+          expect(mail_delivery[0].body).to include('1')
         end
 
         it 'office type' do
-          expect(mail_delivery.body).to include('office')
+          expect(mail_delivery[0].body).to include('office')
 
         end
 
         it 'company' do
-          expect(mail_delivery.body).to include('Craft')
+          expect(mail_delivery[0].body).to include('Craft')
 
         end
 
         it 'peers' do
-          expect(mail_delivery.body).to include('true')
+          expect(mail_delivery[0].body).to include('true')
 
         end
 
         it 'email' do
-          expect(mail_delivery.body).to include('example@example.com')
+          expect(mail_delivery[0].body).to include('example@example.com')
 
         end
 
         it 'flexible' do
-          expect(mail_delivery.body).to include('true')
+          expect(mail_delivery[0].body).to include('true')
 
         end
 
         it 'phone' do
-          expect(mail_delivery.body).to include('0707123456')
+          expect(mail_delivery[0].body).to include('0707123456')
 
         end
 
         it 'location' do
-          expect(mail_delivery.body).to include('Gothenburg City, Southside')
+          expect(mail_delivery[0].body).to include('Gothenburg City, Southside')
 
         end
 
         it 'start date' do
-          expect(mail_delivery.body).to include('2021-06-21')
+          expect(mail_delivery[0].body).to include('2021-06-21')
 
         end
       end
