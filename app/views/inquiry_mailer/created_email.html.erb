@@ -18,7 +18,13 @@
       <li> Email: <%= @inquiry.email %></li>
       <li> Flexible: <%= @inquiry.flexible %></li>
       <li> Phone: <%= @inquiry.phone %></li>
-      <li> Locations: <%= @inquiry.locations %></li>
+
+      <ul> Locations: 
+        <% @inquiry.locations.each do |location| %>
+          <li><%= location %> </li>
+        <% end %>
+      </ul>
+
       <li> Start date: <%= @inquiry.start_date %></li>
     </ul>
   </body>

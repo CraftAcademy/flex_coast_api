@@ -3,7 +3,6 @@ class Api::InquiriesController < ApplicationController
     inquiry = Inquiry.create(inquiry_params)
 
     if inquiry.persisted?
-      # send off inquiry mail to broker 
       InquiryMailer.created_email(inquiry).deliver
       render json: { message: 'Thanks for your answers! We\'ll be in touch' }
     else

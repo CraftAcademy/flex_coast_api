@@ -76,7 +76,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         end
 
         it 'location' do
-          expect(mail_delivery[0].body).to include('Gothenburg City, Southside')
+          expect(mail_delivery[0].body).to include('Gothenburg City', 'Southside')
 
         end
 
