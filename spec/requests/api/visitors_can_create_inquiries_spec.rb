@@ -1,6 +1,7 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
   describe 'successfully' do
-    let!(:mail_delivery) { ActionMailer::Base.deliveries }
+    let(:mail_delivery) { ActionMailer::Base.deliveries }
+
     before do
       post '/api/inquiries',
            params: {
@@ -29,6 +30,10 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
     it 'is expected to have created a new Inquiry' do
       expect(Inquiry.all.count).to eq 1
+    end
+
+    it 'is expected to send off slack notification' do
+      expect(a_request(:post, 'https://hooks.slack.com/services/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')).to have_been_made.times(1)
     end
 
     describe 'outgoing email' do
@@ -66,7 +71,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         end
 
         it 'phone' do
-          expect(mail_delivery[0].body).to include(0707123456)
+          expect(mail_delivery[0].body).to include(0o707123456)
         end
 
         it 'location' do

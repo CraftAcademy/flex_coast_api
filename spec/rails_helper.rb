@@ -4,9 +4,12 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
+require 'slack-notify'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -23,4 +26,8 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include ResponseJSON
+  config.before(:each) do
+    stub_request(:post, 'https://hooks.slack.com/services/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').
+    to_return(status: 200, body: 'true', headers: {})
+  end
 end
