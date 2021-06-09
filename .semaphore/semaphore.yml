@@ -12,8 +12,8 @@ blocks:
           value: 'postgresql://postgres:@0.0.0.0:5432/myapp_test'
         - name: RAILS_ENV
           value: test
+      secrets:
         - name: RAILS_MASTER_KEY
-          value: <%= Rails.application.credentials.dig(:slack, :webhook_url) %>
       jobs:
         - name: Test
           commands:
