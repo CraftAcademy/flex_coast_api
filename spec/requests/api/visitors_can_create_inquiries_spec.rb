@@ -33,7 +33,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     end
 
     it 'is expected to send off slack notification' do
-      expect(a_request(:post, 'https://hooks.slack.com/services/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')).to have_been_made.times(1)
+      expect(a_request(:post, Rails.application.credentials.dig(:slack, :webhook_url))).to have_been_made.times(1)
     end
 
     describe 'outgoing email' do

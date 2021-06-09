@@ -17,6 +17,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -27,7 +28,7 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include ResponseJSON
   config.before(:each) do
-    stub_request(:post, 'https://hooks.slack.com/services/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').
+    stub_request(:post, Rails.application.credentials.dig(:slack, :webhook_url)).
     to_return(status: 200, body: 'true', headers: {})
   end
 end
