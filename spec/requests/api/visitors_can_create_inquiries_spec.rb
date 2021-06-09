@@ -1,10 +1,8 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
   describe 'successfully' do
     let(:mail_delivery) { ActionMailer::Base.deliveries }
-    let(:client) { SlackNotify::Client.new(webhook_url: 'www.test.com') }
 
     before do
-      client.stub(:notify)
       post '/api/inquiries',
            params: {
              form_data: {
@@ -35,7 +33,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     end
 
     it 'is expected to send off slack notification' do
-      expect(client).to have_received(:notify).with('New Inquiry From Craft In Your Inbox')
+      expect(a_request(:post, 'https://hooks.slack.com/services/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')).to have_been_made.times(1)
     end
 
     describe 'outgoing email' do

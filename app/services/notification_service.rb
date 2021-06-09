@@ -6,6 +6,7 @@ module NotificationService
     client = SlackNotify::Client.new(
       webhook_url: 'https://hooks.slack.com/services/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'
     )
-    client.notify("New Inquiry From #{inquiry.company} In Your Inbox", '#flex-coast-final-project-march-2021')
+    hey = client.notify("New Inquiry From #{inquiry.company} In Your Inbox", '#flex-coast-final-project-march-2021')
+    binding.pry
   end
 end
