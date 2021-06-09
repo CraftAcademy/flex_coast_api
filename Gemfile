@@ -11,6 +11,8 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 gem 'slack-notify'
 gem 'devise_token_auth'
+gem 'pundit'
+gem 'pundit_helpers'
 
 group :development, :test do
   gem 'coveralls', require: false

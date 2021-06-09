@@ -3,10 +3,9 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
   let(:credentials) { broker_1.create_new_auth_token }
   let(:broker_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
   let(:pending_inquiry) { create(:inquiry, inquiry_status: 'pending') }
-  
+
   describe 'successfully' do
     describe 'from pending to started' do
-
       before do
         put "/api/inquiries/#{pending_inquiry.id}",
             params: {
@@ -14,23 +13,23 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
             },
             headers: broker_headers
       end
-  
+
       it 'is expected to return a 200 status' do
         expect(response).to have_http_status 200
       end
-  
+
       it 'is expected to be associated to user that updated inquiry status' do
         pending_inquiry.reload
         expect(pending_inquiry.broker).to eq broker_1
       end
-  
+
       it 'is expected to respond with a message' do
         expect(response_json['message']).to eq 'Inquiry has been updated'
       end
-  
+
       it 'is expected to set inquiry status to started' do
         expect(response_json['inquiry']['inquiry_status']).to eq 'started'
-      end  
+      end
     end
 
     describe 'from started to done' do
@@ -43,15 +42,15 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
             },
             headers: broker_headers
       end
-  
+
       it 'is expected to return a 200 status' do
         expect(response).to have_http_status 200
       end
-  
+
       it 'is expected to respond with a message' do
         expect(response_json['message']).to eq 'Inquiry has been updated'
       end
-  
+
       it 'is expected to set inquiry status to done' do
         expect(response_json['inquiry']['inquiry_status']).to eq 'done'
       end
@@ -67,11 +66,11 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
             },
             headers: broker_headers
       end
-  
+
       it 'is expected to return a 422 status' do
         expect(response).to have_http_status 422
       end
-  
+
       it 'is expected to return error message' do
         expect(response_json['message'])
           .to eq "'Your mom' is not a valid inquiry_status"
@@ -88,14 +87,14 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
             },
             headers: invalid_auth_header
       end
-  
+
       it 'is expected to return a 401 status' do
         expect(response).to have_http_status 401
       end
-  
+
       it 'is expected to return error message' do
         expect(response_json['errors'])
-          .to include "You need to sign in or sign up before continuing."
+          .to include 'You need to sign in or sign up before continuing.'
       end
     end
 
@@ -104,7 +103,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       let(:broker_2) { create(:user, email: 'another_broker@flexcoast.com') }
       let(:credentials) { broker_2.create_new_auth_token }
       let(:broker_2_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
-    
+
       before do
         put "/api/inquiries/#{started_inquiry.id}",
             params: {
@@ -116,10 +115,10 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       it 'is expected to return 422 status' do
         expect(response).to have_http_status 422
       end
-    
+
       it 'is expected to return error message' do
         expect(response_json['message'])
-          .to eq "You are not authorized to do this"
+          .to eq 'You are not authorized to do this'
       end
     end
   end
