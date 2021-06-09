@@ -28,7 +28,7 @@ RSpec.describe Inquiry, type: :model do
     }
     it {
       is_expected.to have_db_column(:phone)
-        .of_type(:integer)
+        .of_type(:string)
     }
     it {
       is_expected.to have_db_column(:start_date)
