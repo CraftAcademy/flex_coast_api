@@ -37,7 +37,8 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       put "/api/inquiries/#{inquiry.id}",
           params: {
             form_data: { inquiry_status: 'Your mom' }
-          }
+          },
+          headers: user_headers
     end
 
     it 'is expected to return a 422 status' do
