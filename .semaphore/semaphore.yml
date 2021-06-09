@@ -24,3 +24,6 @@ blocks:
             - 'bundle exec rake db:create'
             - 'bundle exec rake db:migrate'
             - 'COVERALLS_REPO_TOKEN=qfI2Cd5V3CjRsmMib1S6xTdHa9u2sdpA6 bundle exec rails ci:tests'
+      secrets:
+        - name: RAILS_MASTER_KEY
+

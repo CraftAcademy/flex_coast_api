@@ -46,7 +46,7 @@ RSpec.describe 'GET /api/inquiries', type: :request do
     end
 
     it 'is expected to include the inquiry\'s phone number' do
-      expect(response_json['inquiries'].first['phone']).to eq 0707123456
+      expect(response_json['inquiries'].first['phone']).to eq '0707123456'
     end
 
     it 'is expected to include the inquiry\'s created date' do
