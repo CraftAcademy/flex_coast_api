@@ -1,4 +1,5 @@
 class Api::InquiriesController < ApplicationController
+  before_action :authenticate_user!, only: :update
   def create
     inquiry = Inquiry.create(inquiry_params)
 
@@ -17,8 +18,15 @@ class Api::InquiriesController < ApplicationController
 
   def update
     inquiry = Inquiry.find(params[:id])
-    inquiry.update(inquiry_status: params[:form_data][:inquiry_status])
-    render json: { inquiry: inquiry, message: 'Inquiry has been updated' }, status: 200
+    inquiry.update(
+      inquiry_status: params[:form_data][:inquiry_status], 
+      broker: current_user
+    )
+    
+    render json: { 
+      inquiry: inquiry, 
+      message: 'Inquiry has been updated' 
+    }, status: 200
   rescue ArgumentError => e
     render json: { message: e.message }, status: 422
   end
