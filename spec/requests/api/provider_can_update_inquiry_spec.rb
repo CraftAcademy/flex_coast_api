@@ -19,7 +19,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
     end
 
     it 'is expected to be associated to user that updated inquiry status' do
-      inquiry.reload!
+      inquiry.reload
       expect(inquiry.broker).to eq user
     end
 
