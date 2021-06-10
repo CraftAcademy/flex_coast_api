@@ -7,6 +7,7 @@ class Inquiry < ApplicationRecord
   enum inquiry_status: { pending: 1, started: 2, done: 3 }
 
   belongs_to :broker, class_name: 'User', optional: true
+
   private
 
   def send_notifications
