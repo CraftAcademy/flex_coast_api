@@ -1,7 +1,7 @@
 class Inquiry < ApplicationRecord
   include AASM
 
-  aasm :column => 'inquiry_status' do
+  aasm column: 'inquiry_status' do
     state :pending, initial: true
     state :started, :done
 
@@ -18,12 +18,14 @@ class Inquiry < ApplicationRecord
     # transitions from: :done, to: :pending, guards: :illegal
     # transitions from: :done, to: :started, guards: :illegal
 
-    def illegal
-      false
-    end
+    # def illegal
+    #   false
+    # end
   end
 
-  
+  def aasm_event_failed(event_name, old_state_name)
+    raise StandardError, "You can't perform this on an inquiry that is '#{old_state_name}'"
+  end
 
   validates_presence_of :email
 

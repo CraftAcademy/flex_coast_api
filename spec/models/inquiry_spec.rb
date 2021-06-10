@@ -6,10 +6,11 @@ RSpec.describe Inquiry, type: :model do
       let(:inquiry) { create(:inquiry, inquiry_status: 'pending') }
 
       it 'is expected to not be able to update to "done"' do
-        expect(
-          inquiry.update_attribute('inquiry_status', 'done'))
-        .to raise_error(ArgumentError)
-        .with_message('Not able to perform this action')
+        expect{
+          inquiry.finish
+        }
+          .to raise_error(StandardError)
+          .with_message("You can't perform this on an inquiry that is 'pending'")
       end
     end
 
@@ -18,9 +19,10 @@ RSpec.describe Inquiry, type: :model do
 
       it 'is expected to not be able to update to "pending"' do
         expect(
-          inquiry.update_attribute('inquiry_status', 'pending'))
-        .to raise_error(ArgumentError)
-        .with_message('Not able to perform this action')
+          inquiry.update_attribute('inquiry_status', 'pending')
+        )
+          .to raise_error(ArgumentError)
+          .with_message('Not able to perform this action')
       end
     end
 
@@ -29,16 +31,18 @@ RSpec.describe Inquiry, type: :model do
 
       it 'is expected to not be able to update to "pending"' do
         expect(
-          inquiry.update_attribute('inquiry_status', 'pending'))
-        .to raise_error(ArgumentError)
-        .with_message('Not able to perform this action')
+          inquiry.update_attribute('inquiry_status', 'pending')
+        )
+          .to raise_error(ArgumentError)
+          .with_message('Not able to perform this action')
       end
 
       it 'is expected to not be able to update to "started"' do
         expect(
-          inquiry.update_attribute('inquiry_status', 'started'))
-        .to raise_error(ArgumentError)
-        .with_message('Not able to perform this action')
+          inquiry.update_attribute('inquiry_status', 'started')
+        )
+          .to raise_error(ArgumentError)
+          .with_message('Not able to perform this action')
       end
     end
   end
