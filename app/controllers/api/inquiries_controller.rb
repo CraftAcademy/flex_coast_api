@@ -25,18 +25,17 @@ class Api::InquiriesController < ApplicationController
       inquiry.update(
         broker: current_user
       )
-      inquiry.send(params[:form_data][:status_action]).call
     else
       authorize_resource(inquiry) and return
-      inquiry.send(params[:form_data][:status_action]).call
     end
+    inquiry.send(params[:inquiry][:status_action])
 
     render json: {
       inquiry: inquiry,
       message: 'Inquiry has been updated'
     }, status: 200
-  rescue NoMethodError => e
-    render json: { message: e.message }, status: 422
+  rescue NoMethodError
+    render json: { message: 'Invalid status action' }, status: 422
   end
 
   private
@@ -46,7 +45,7 @@ class Api::InquiriesController < ApplicationController
   end
 
   def inquiry_params
-    params.require(:form_data).permit(:size, :office_type, :inquiry_status, :company, :start_date, :peers, :email, :flexible,
+    params.require(:inquiry).permit(:size, :office_type, :inquiry_status, :company, :start_date, :peers, :email, :flexible,
                                       :phone, locations: [])
   end
 

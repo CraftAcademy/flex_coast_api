@@ -9,7 +9,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{pending_inquiry.id}",
             params: {
-              form_data: { status_action: 'start' }
+              inquiry: { status_action: 'start' }
             },
             headers: broker_headers
       end
@@ -38,7 +38,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{started_inquiry.id}",
             params: {
-              form_data: { status_action: 'finish' }
+              inquiry: { status_action: 'finish' }
             },
             headers: broker_headers
       end
@@ -64,7 +64,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{done_inquiry.id}",
             params: {
-              form_data: { status_action: 'set_to_pending' }
+              inquiry: { status_action: 'set_to_pending' }
             },
             headers: broker_headers
       end
@@ -85,7 +85,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{done_inquiry.id}",
             params: {
-              form_data: { status_action: 'start' }
+              inquiry: { status_action: 'start' }
             },
             headers: broker_headers
       end
@@ -104,7 +104,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{pending_inquiry.id}",
             params: {
-              form_data: { status_action: 'finish' }
+              inquiry: { status_action: 'finish' }
             },
             headers: broker_headers
       end
@@ -123,7 +123,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{pending_inquiry.id}",
             params: {
-              form_data: { status_action: 'Your mom' }
+              inquiry: { status_action: 'Your mom' }
             },
             headers: broker_headers
       end
@@ -144,7 +144,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{pending_inquiry.id}",
             params: {
-              form_data: { inquiry_status: 'started' }
+              inquiry: { status_action: 'start' }
             },
             headers: invalid_auth_header
       end
@@ -168,7 +168,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{started_inquiry.id}",
             params: {
-              form_data: { inquiry_status: 'done' }
+              inquiry: { status_action: 'finish' }
             },
             headers: broker_2_headers
       end
