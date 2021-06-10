@@ -1,6 +1,48 @@
 RSpec.describe Inquiry, type: :model do
   let!(:mail_delivery) { ActionMailer::Base.deliveries }
 
+  describe 'Inquiry status logic' do
+    describe '"pending"' do
+      let(:inquiry) { create(:inquiry, inquiry_status: 'pending') }
+
+      it 'is expected to not be able to update to "done"' do
+        expect(
+          inquiry.update_attribute('inquiry_status', 'done'))
+        .to raise_error(ArgumentError)
+        .with_message('Not able to perform this action')
+      end
+    end
+
+    describe '"started"' do
+      let(:inquiry) { create(:inquiry, inquiry_status: 'started') }
+
+      it 'is expected to not be able to update to "pending"' do
+        expect(
+          inquiry.update_attribute('inquiry_status', 'pending'))
+        .to raise_error(ArgumentError)
+        .with_message('Not able to perform this action')
+      end
+    end
+
+    describe '"done"' do
+      let(:inquiry) { create(:inquiry, inquiry_status: 'done') }
+
+      it 'is expected to not be able to update to "pending"' do
+        expect(
+          inquiry.update_attribute('inquiry_status', 'pending'))
+        .to raise_error(ArgumentError)
+        .with_message('Not able to perform this action')
+      end
+
+      it 'is expected to not be able to update to "started"' do
+        expect(
+          inquiry.update_attribute('inquiry_status', 'started'))
+        .to raise_error(ArgumentError)
+        .with_message('Not able to perform this action')
+      end
+    end
+  end
+
   describe 'db table' do
     it {
       is_expected.to have_db_column(:size)
