@@ -8,10 +8,5 @@ class Inquiries::IndexSerializer < ActiveModel::Serializer
   def broker
     return nil unless object.broker
     Users::Serializer.new(object.broker)
-    # {
-    #   name: object.broker.name,
-    #   email: object.broker.email,
-    #   id: object.broker.id
-    # }
   end 
 end
