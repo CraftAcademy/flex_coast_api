@@ -66,6 +66,7 @@ RSpec.describe 'GET /api/inquiries', type: :request do
       end
 
       it 'with their id' do
+        binding.pry
         expect(response_json['inquiries'].first['broker']['id']).to eq broker.id
       end
     end
