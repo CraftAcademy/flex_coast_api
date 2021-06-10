@@ -13,7 +13,7 @@ class Api::InquiriesController < ApplicationController
 
   def index
     inquiries = Inquiry.all
-    render json: inquiries, each_serializer: InquiriesIndexSerializer
+    render json: inquiries, each_serializer: Inquiries::IndexSerializer
   end
 
   def update
