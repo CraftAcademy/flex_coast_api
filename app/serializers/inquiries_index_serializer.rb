@@ -6,6 +6,11 @@ class InquiriesIndexSerializer < ActiveModel::Serializer
   end
 
   def broker
-    object&.broker
+    return nil unless object.broker
+    {
+      name: object.broker.name,
+      email: object.broker.email,
+      id: object.broker.id
+    }
   end 
 end
