@@ -38,7 +38,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{started_inquiry.id}",
             params: {
-              form_data: { inquiry_status: 'done' }
+              form_data: { status_action: 'finish' }
             },
             headers: broker_headers
       end
@@ -75,7 +75,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to return error message' do
         expect(response_json['message'])
-          .to eq "Not able to perform this action"
+          .to eq "You can't perform this on an inquiry that is 'done'"
       end
     end
 
@@ -96,28 +96,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to return error message' do
         expect(response_json['message'])
-          .to eq "Not able to perform this action"
-      end
-    end
-
-    describe 'from "started" to "pending"' do
-      let(:started_inquiry) { create(:inquiry, inquiry_status: 'started', broker: broker_1) }
-
-      before do
-        put "/api/inquiries/#{started_inquiry.id}",
-            params: {
-              form_data: { status_action: 'set_to_pending' }
-            },
-            headers: broker_headers
-      end
-
-      it 'is expected to return a 422 status' do
-        expect(response).to have_http_status 422
-      end
-
-      it 'is expected to return error message' do
-        expect(response_json['message'])
-          .to eq "Not able to perform this action"
+          .to eq "You can't perform this on an inquiry that is 'done'"
       end
     end
 
@@ -136,7 +115,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to return error message' do
         expect(response_json['message'])
-          .to eq "Not able to perform this action"
+          .to eq "You can't perform this on an inquiry that is 'pending'"
       end
     end
 
@@ -155,7 +134,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to return error message' do
         expect(response_json['message'])
-          .to eq "'Your mom' is not a valid inquiry_status"
+          .to eq "Invalid status action"
       end
     end
 
