@@ -1,5 +1,8 @@
 class Api::InquiriesController < ApplicationController
   before_action :authenticate_user!, only: :update
+
+  rescue_from StandardError, with: :rescue_from_standard_error
+
   def create
     inquiry = Inquiry.create(inquiry_params)
 
@@ -20,22 +23,19 @@ class Api::InquiriesController < ApplicationController
     inquiry = Inquiry.find(params[:id])
     if inquiry.pending?
       inquiry.update(
-        inquiry_status: params[:form_data][:inquiry_status],
         broker: current_user
       )
+      inquiry.send(params[:form_data][:status_action]).call
     else
       authorize_resource(inquiry) and return
-
-      inquiry.update(
-        inquiry_status: params[:form_data][:inquiry_status]
-      )
+      inquiry.send(params[:form_data][:status_action]).call
     end
 
     render json: {
       inquiry: inquiry,
       message: 'Inquiry has been updated'
     }, status: 200
-  rescue ArgumentError => e
+  rescue NoMethodError => e
     render json: { message: e.message }, status: 422
   end
 
@@ -48,5 +48,9 @@ class Api::InquiriesController < ApplicationController
   def inquiry_params
     params.require(:form_data).permit(:size, :office_type, :inquiry_status, :company, :start_date, :peers, :email, :flexible,
                                       :phone, locations: [])
+  end
+
+  def rescue_from_standard_error(error)
+    render json: {message: error.message}, status: 422
   end
 end

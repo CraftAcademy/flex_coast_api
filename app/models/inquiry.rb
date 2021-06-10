@@ -16,14 +16,6 @@ class Inquiry < ApplicationRecord
     event :set_to_pending do
       transitions from: :started, to: :pending
     end
-    # transitions from: :pending, to: :done, guards: :illegal
-    # transitions from: :started, to: :pending, guards: :illegal
-    # transitions from: :done, to: :pending, guards: :illegal
-    # transitions from: :done, to: :started, guards: :illegal
-
-    # def illegal
-    #   false
-    # end
   end
 
   def aasm_event_failed(event_name, old_state_name)
