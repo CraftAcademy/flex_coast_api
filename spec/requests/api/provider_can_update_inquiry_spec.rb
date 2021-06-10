@@ -58,6 +58,88 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
   end
 
   describe 'unsuccessfull' do
+    describe 'from "done" to "pending"' do
+      let(:done_inquiry) { create(:inquiry, inquiry_status: 'done', broker: broker_1) }
+
+      before do
+        put "/api/inquiries/#{done_inquiry.id}",
+            params: {
+              form_data: { inquiry_status: 'pending' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+
+      it 'is expected to return error message' do
+        expect(response_json['message'])
+          .to eq "Not able to perform this action"
+      end
+    end
+
+    describe 'from "done" to "started"' do
+      let(:done_inquiry) { create(:inquiry, inquiry_status: 'done', broker: broker_1) }
+
+      before do
+        put "/api/inquiries/#{done_inquiry.id}",
+            params: {
+              form_data: { inquiry_status: 'started' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+
+      it 'is expected to return error message' do
+        expect(response_json['message'])
+          .to eq "Not able to perform this action"
+      end
+    end
+
+    describe 'from "started" to "pending"' do
+      let(:started_inquiry) { create(:inquiry, inquiry_status: 'started', broker: broker_1) }
+
+      before do
+        put "/api/inquiries/#{started_inquiry.id}",
+            params: {
+              form_data: { inquiry_status: 'pending' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+
+      it 'is expected to return error message' do
+        expect(response_json['message'])
+          .to eq "Not able to perform this action"
+      end
+    end
+
+    describe 'from "pending" to "done"' do
+      before do
+        put "/api/inquiries/#{pending_inquiry.id}",
+            params: {
+              form_data: { inquiry_status: 'done' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+
+      it 'is expected to return error message' do
+        expect(response_json['message'])
+          .to eq "Not able to perform this action"
+      end
+    end
+
     describe 'with invalid params' do
       before do
         put "/api/inquiries/#{pending_inquiry.id}",
