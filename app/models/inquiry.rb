@@ -13,6 +13,9 @@ class Inquiry < ApplicationRecord
       transitions from: :started, to: :done
     end
 
+    event :set_to_pending do
+      transitions from: :started, to: :pending
+    end
     # transitions from: :pending, to: :done, guards: :illegal
     # transitions from: :started, to: :pending, guards: :illegal
     # transitions from: :done, to: :pending, guards: :illegal

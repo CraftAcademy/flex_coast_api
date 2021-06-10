@@ -1,48 +1,59 @@
 RSpec.describe Inquiry, type: :model do
   let!(:mail_delivery) { ActionMailer::Base.deliveries }
 
-  describe 'Inquiry status logic' do
-    describe '"pending"' do
-      let(:inquiry) { create(:inquiry, inquiry_status: 'pending') }
+  describe 'Inquiry status events' do
+    let(:pending_inquiry) { create(:inquiry, inquiry_status: 'pending') }
+    let(:started_inquiry) { create(:inquiry, inquiry_status: 'started') }
+    let(:done_inquiry) { create(:inquiry, inquiry_status: 'done') }
 
-      it 'is expected to not be able to update to "done"' do
+    describe 'Pending inquiry' do
+      it 'is expected to be able to ":start' do
         expect{
-          inquiry.finish
+          pending_inquiry.start
         }
-          .to raise_error(StandardError)
-          .with_message("You can't perform this on an inquiry that is 'pending'")
+        .not_to raise_error
+      end
+
+      it 'is expected to not be able to ":finish"' do
+        expect{
+          pending_inquiry.finish
+        }
+        .to raise_error(StandardError)
+        .with_message("You can't perform this on an inquiry that is 'pending'")
       end
     end
 
-    describe '"started"' do
-      let(:inquiry) { create(:inquiry, inquiry_status: 'started') }
+    describe 'Started inquiry' do
+      it 'is expected to be able to ":set_to_pending"' do
+        expect{
+          started_inquiry.set_to_pending
+        }
+        .not_to raise_error
+      end
 
-      it 'is expected to not be able to update to "pending"' do
-        expect(
-          inquiry.update_attribute('inquiry_status', 'pending')
-        )
-          .to raise_error(ArgumentError)
-          .with_message('Not able to perform this action')
+      it 'is expected to be able to "finish"' do
+        expect{
+          started_inquiry.finish
+        }
+        .not_to raise_error
       end
     end
 
-    describe '"done"' do
-      let(:inquiry) { create(:inquiry, inquiry_status: 'done') }
-
-      it 'is expected to not be able to update to "pending"' do
-        expect(
-          inquiry.update_attribute('inquiry_status', 'pending')
-        )
-          .to raise_error(ArgumentError)
-          .with_message('Not able to perform this action')
+    describe 'Done inquiry' do
+      it 'is expected to not be able to ":set_to_pending"' do
+        expect{
+          done_inquiry.set_to_pending
+        }
+        .to raise_error(StandardError)
+        .with_message("You can't perform this on an inquiry that is 'done'")
       end
 
-      it 'is expected to not be able to update to "started"' do
-        expect(
-          inquiry.update_attribute('inquiry_status', 'started')
-        )
-          .to raise_error(ArgumentError)
-          .with_message('Not able to perform this action')
+      it 'is expected to not be able to ":start"' do
+        expect{
+          done_inquiry.start
+        }
+        .to raise_error(StandardError)
+        .with_message("You can't perform this on an inquiry that is 'done'")
       end
     end
   end
