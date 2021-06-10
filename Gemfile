@@ -13,6 +13,7 @@ gem 'slack-notify'
 gem 'devise_token_auth'
 gem 'pundit'
 gem 'pundit_helpers'
+gem 'aasm'
 
 group :development, :test do
   gem 'coveralls', require: false
