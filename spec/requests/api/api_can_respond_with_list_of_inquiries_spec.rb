@@ -1,5 +1,8 @@
 RSpec.describe 'GET /api/inquiries', type: :request do
-  let!(:inquiry) { 3.times { create(:inquiry) } }
+  let!(:started_inquiry) { create(:inquiry, broker: broker) }
+  let!(:inquiry) { 2.times { create(:inquiry) } }
+  let(:broker) { create(:user, email: 'broker@email.com') }
+
   describe 'successfully' do
     before do
       get '/api/inquiries'
@@ -51,6 +54,10 @@ RSpec.describe 'GET /api/inquiries', type: :request do
 
     it 'is expected to include the inquiry\'s created date' do
       expect(response_json['inquiries'].first['inquiry_date']).to eq Time.zone.now.strftime('%d %b %Y')
+    end
+
+    it 'is expected to include broker details' do
+      expect(response_json['inquiries'].first['broker']['email']).to eq 'broker@email.com'
     end
   end
 end
