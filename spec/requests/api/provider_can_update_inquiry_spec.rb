@@ -9,7 +9,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{pending_inquiry.id}",
             params: {
-              form_data: { inquiry_status: 'started' }
+              inquiry: { status_action: 'start' }
             },
             headers: broker_headers
       end
@@ -38,7 +38,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{started_inquiry.id}",
             params: {
-              form_data: { inquiry_status: 'done' }
+              inquiry: { status_action: 'finish' }
             },
             headers: broker_headers
       end
@@ -58,11 +58,13 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
   end
 
   describe 'unsuccessfull' do
-    describe 'with invalid params' do
+    describe 'from "done" to "pending"' do
+      let(:done_inquiry) { create(:inquiry, inquiry_status: 'done', broker: broker_1) }
+
       before do
-        put "/api/inquiries/#{pending_inquiry.id}",
+        put "/api/inquiries/#{done_inquiry.id}",
             params: {
-              form_data: { inquiry_status: 'Your mom' }
+              inquiry: { status_action: 'set_to_pending' }
             },
             headers: broker_headers
       end
@@ -73,7 +75,66 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to return error message' do
         expect(response_json['message'])
-          .to eq "'Your mom' is not a valid inquiry_status"
+          .to eq "You can't perform this on an inquiry that is 'done'"
+      end
+    end
+
+    describe 'from "done" to "started"' do
+      let(:done_inquiry) { create(:inquiry, inquiry_status: 'done', broker: broker_1) }
+
+      before do
+        put "/api/inquiries/#{done_inquiry.id}",
+            params: {
+              inquiry: { status_action: 'start' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+
+      it 'is expected to return error message' do
+        expect(response_json['message'])
+          .to eq "You can't perform this on an inquiry that is 'done'"
+      end
+    end
+
+    describe 'from "pending" to "done"' do
+      before do
+        put "/api/inquiries/#{pending_inquiry.id}",
+            params: {
+              inquiry: { status_action: 'finish' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+
+      it 'is expected to return error message' do
+        expect(response_json['message'])
+          .to eq "You can't perform this on an inquiry that is 'pending'"
+      end
+    end
+
+    describe 'with invalid params' do
+      before do
+        put "/api/inquiries/#{pending_inquiry.id}",
+            params: {
+              inquiry: { status_action: 'Your mom' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+
+      it 'is expected to return error message' do
+        expect(response_json['message'])
+          .to eq "Invalid status action"
       end
     end
 
@@ -83,7 +144,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{pending_inquiry.id}",
             params: {
-              form_data: { inquiry_status: 'started' }
+              inquiry: { status_action: 'start' }
             },
             headers: invalid_auth_header
       end
@@ -107,7 +168,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       before do
         put "/api/inquiries/#{started_inquiry.id}",
             params: {
-              form_data: { inquiry_status: 'done' }
+              inquiry: { status_action: 'finish' }
             },
             headers: broker_2_headers
       end

@@ -5,7 +5,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     before do
       post '/api/inquiries',
            params: {
-             form_data: {
+            inquiry: {
                size: 1,
                office_type: 'office',
                inquiry_status: 'pending',
@@ -89,7 +89,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     before do
       post '/api/inquiries',
            params: {
-             form_data: {
+            inquiry: {
                size: 1,
                office_type: 'office',
                inquiry_status: 'pending',
