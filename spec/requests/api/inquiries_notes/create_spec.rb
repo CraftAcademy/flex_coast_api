@@ -69,5 +69,25 @@ RSpec.describe 'POST /api/inquiries/:id/notes', type: :request do
         expect(response_json['error_message']).to eq 'Unfortunately, we had a small issue processing your request. Would you please try again?'
       end  
     end
+
+    describe 'with wrong inquiry id' do
+      before do
+        post "/api/inquiries/420/notes",
+        params: {
+          note: {
+            body: 'Fake inquiry id in request'
+          }
+        },
+        headers: headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+  
+      it 'is expected to return error message' do
+        expect(response_json['error_message']).to eq "Couldn't find Inquiry with 'id'=420"
+      end
+    end
   end
 end 
