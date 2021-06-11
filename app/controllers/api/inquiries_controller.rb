@@ -29,7 +29,7 @@ class Api::InquiriesController < ApplicationController
       authorize_resource(inquiry) and return
     end
     inquiry.send(params[:inquiry][:status_action])
-
+    inquiry.save
     render json: {
       inquiry: inquiry,
       message: 'Inquiry has been updated'
