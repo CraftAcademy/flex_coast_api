@@ -1,9 +1,8 @@
 RSpec.describe 'POST /api/inquiries/:id/notes', type: :request do
   let(:inquiry) { create(:inquiry, inquiry_status: 'pending') }
-  let(:writer) { create(:user) }
-  let(:credentials) { writer.create_new_auth_token }
+  let(:creator) { create(:user) }
+  let(:credentials) { creator.create_new_auth_token }
   let(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
-
 
   describe 'successfully' do
     before do
@@ -25,7 +24,7 @@ RSpec.describe 'POST /api/inquiries/:id/notes', type: :request do
     end
 
     it 'is expected to have note associated to user that submited it' do
-      expect(inquiry.notes.last.writer).to eq writer
+      expect(inquiry.notes.last.creator).to eq creator
     end
   end
 

@@ -37,9 +37,9 @@ ActiveRecord::Schema.define(version: 2021_06_11_131523) do
     t.bigint "inquiry_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "writer_id"
+    t.bigint "creator_id"
+    t.index ["creator_id"], name: "index_notes_on_creator_id"
     t.index ["inquiry_id"], name: "index_notes_on_inquiry_id"
-    t.index ["writer_id"], name: "index_notes_on_writer_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,5 +71,5 @@ ActiveRecord::Schema.define(version: 2021_06_11_131523) do
   end
 
   add_foreign_key "inquiries", "users", column: "broker_id"
-  add_foreign_key "notes", "users", column: "writer_id"
+  add_foreign_key "notes", "users", column: "creator_id"
 end

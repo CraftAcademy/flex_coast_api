@@ -2,21 +2,18 @@ class Api::NotesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    begin
-      inquiry = Inquiry.find(params[:inquiry_id])
+    inquiry = Inquiry.find(params[:inquiry_id])
 
-      note = inquiry.notes.create(note_params.merge(writer: current_user))
-  
-      if note.persisted?
-        render json: { message: 'Note successfully created' }
-      else
-        render json: { error_message: 'Unfortunately, we had a small issue processing your request. Would you please try again?' },
-               status: 422
-      end  
-    rescue => error
-      render json: { error_message: error.message },
-               status: 422
-    end
+    note = inquiry.notes.create(note_params.merge(creator: current_user))
+
+    if note.persisted?
+      render json: { message: 'Note successfully created' }
+    else
+      render json: { error_message: 'Unfortunately, we had a small issue processing your request. Would you please try again?' },
+              status: 422
+    end  
+  rescue => error
+    render json: { error_message: error.message }, status: 422
   end
 
   private 
