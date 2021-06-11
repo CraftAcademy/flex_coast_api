@@ -47,9 +47,16 @@ class Inquiry < ApplicationRecord
   private
 
   def add_note(body)
-    self.notes.create(
-      body: body
-    )
+    if broker && self.notes != []
+      self.notes.create(
+        body: body,
+        creator_id: broker_id
+      )   
+    else
+      self.notes.create(
+        body: body
+      )
+    end
   end
 
   def send_notifications
