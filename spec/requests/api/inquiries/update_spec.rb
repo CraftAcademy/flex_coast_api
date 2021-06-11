@@ -33,7 +33,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was started' do
         pending_inquiry.reload
-        expect(pending_inquiry.notes.last.body).to eq "When the inquiry status was updated from pending to started"
+        expect(pending_inquiry.notes.last.body).to eq "This is inquiry was started #{pending_inquiry.updated_at.strftime("%d %b %Y")}"
       end
     end
 
@@ -57,7 +57,6 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       end
 
       it 'is expected to set inquiry status to done' do
-        binding.pry
         expect(response_json['inquiry']['inquiry_status']).to eq 'done'
       end
 
@@ -91,8 +90,8 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       end
 
       it 'is expected to create associated note about when inquiry was set tp pending' do
-        pending_inquiry.reload
-        expect(pending_inquiry.notes.last.body).to eq "When the inquiry status was updated from started to pending"
+        started_inquiry.reload
+        expect(started_inquiry.notes.last.body).to eq "This is inquiry was shelved #{started_inquiry.updated_at.strftime("%d %b %Y")}"
       end
     end
 
