@@ -112,7 +112,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       expect(response).to have_http_status 422
     end
 
-    it 'is expected to respond with a success message' do
+    it 'is expected to return error message' do
       expect(response_json['error_message']).to eq 'Unfortunately, we had a small issue processing your request. Would you please try again?'
     end
   end
