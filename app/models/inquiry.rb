@@ -41,21 +41,17 @@ class Inquiry < ApplicationRecord
 
   def automated_notes
     if inquiry_status == "done" && self.inquiry_status_before_last_save == "started"
-      self.notes.create(
-        body: "This is inquiry was finished #{self.updated_at.strftime("%d %b %Y")}"
-      )
+      note_body = "This is inquiry was finished #{self.updated_at.strftime("%d %b %Y")}"
     elsif inquiry_status == "started" && self.inquiry_status_before_last_save == "pending"
-      self.notes.create(
-        body: "This is inquiry was started #{self.updated_at.strftime("%d %b %Y")}"
-      )
+      note_body = "This is inquiry was started #{self.updated_at.strftime("%d %b %Y")}"
     elsif inquiry_status == "pending" && self.inquiry_status_before_last_save == "started"
-      self.notes.create(
-        body: "This is inquiry was shelved #{self.updated_at.strftime("%d %b %Y")}"
-      )
+      note_body = "This is inquiry was shelved #{self.updated_at.strftime("%d %b %Y")}"
     else
-      self.notes.create(
-        body: "This is inquiry was submitted #{self.created_at.strftime("%d %b %Y")}"
-      )
+      note_body = "This is inquiry was submitted #{self.created_at.strftime("%d %b %Y")}"
     end
+
+    self.notes.create(
+      body: note_body
+    )
   end
 end
