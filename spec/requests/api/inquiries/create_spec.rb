@@ -36,6 +36,10 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       expect(a_request(:post, Rails.application.credentials.dig(:slack, :webhook_url))).to have_been_made.times(1)
     end
 
+    it 'is expected to create note associated to inquiry about when it got submited' do
+      expect(Inquiry.last.notes.last.body).to eq "This is inquiry was submitted #{Inquiry.last.created_at.strftime("%d %b %Y")}"
+    end
+
     describe 'outgoing email' do
       it 'is expected to send off email address of the sender' do
         expect(mail_delivery[0].from).to include('notification@flexcoast.com')
