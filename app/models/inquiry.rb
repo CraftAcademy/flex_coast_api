@@ -47,10 +47,10 @@ class Inquiry < ApplicationRecord
   private
 
   def add_note(body)
-    if broker && self.notes != []
+    if self.broker && self.notes != []
       self.notes.create(
         body: body,
-        creator_id: broker_id
+        creator: self.broker
       )   
     else
       self.notes.create(
