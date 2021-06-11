@@ -118,6 +118,10 @@ RSpec.describe Inquiry, type: :model do
     }
   end
 
+  describe 'Associations' do
+    it { is_expected.to have_many :notes }
+  end
+
   describe 'Hooks' do
     it 'is expected to send notification email' do
       expect { create(:inquiry) }
