@@ -9,7 +9,8 @@ class Api::NotesController < ApplicationController
     if note.persisted?
       render json: { message: 'Note successfully created' }
     else
-      binding.pry
+      render json: { error_message: 'Unfortunately, we had a small issue processing your request. Would you please try again?' },
+             status: 422
     end
   end
 

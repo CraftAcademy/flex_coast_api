@@ -49,5 +49,25 @@ RSpec.describe 'POST /api/inquiries/:id/notes', type: :request do
           .to include 'You need to sign in or sign up before continuing.'
       end
     end
+
+    describe 'with invalid param' do
+      before do
+        post "/api/inquiries/#{inquiry.id}/notes",
+        params: {
+          note: {
+            body: ''
+          }
+        },
+        headers: headers
+      end
+
+      it 'is expected to return a 422 status' do
+        expect(response).to have_http_status 422
+      end
+  
+      it 'is expected to return error message' do
+        expect(response_json['error_message']).to eq 'Unfortunately, we had a small issue processing your request. Would you please try again?'
+      end  
+    end
   end
 end 
