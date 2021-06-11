@@ -4,12 +4,18 @@ class Api::NotesController < ApplicationController
   def create
     inquiry = Inquiry.find(params[:inquiry_id])
 
-    note = current_user.notes.create(note_params).merge(inquiry: inquiry)
+    note = inquiry.notes.create(note_params.merge(writer: current_user))
 
     if note.persisted?
       render json: { message: 'Note successfully created' }
     else
       binding.pry
     end
+  end
+
+  private 
+
+  def note_params
+    params.require(:note).permit(:body)
   end
 end
