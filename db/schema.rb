@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_11_083309) do
+ActiveRecord::Schema.define(version: 2021_06_11_131523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,9 @@ ActiveRecord::Schema.define(version: 2021_06_11_083309) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "inquiry_status"
     t.bigint "broker_id"
+    t.bigint "writer_id"
     t.index ["broker_id"], name: "index_inquiries_on_broker_id"
+    t.index ["writer_id"], name: "index_inquiries_on_writer_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -69,4 +71,5 @@ ActiveRecord::Schema.define(version: 2021_06_11_083309) do
   end
 
   add_foreign_key "inquiries", "users", column: "broker_id"
+  add_foreign_key "inquiries", "users", column: "writer_id"
 end
