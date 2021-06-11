@@ -29,9 +29,25 @@ RSpec.describe 'POST /api/inquiries/:id/notes', type: :request do
     end
   end
 
-  # describe 'unsuccessfully' do
-  #   before do
-  #     post "/api/inquiries/#{inquiry.id}/notes"
-  #   end
-  # end
+  describe 'unsuccessfull' do
+    describe 'without valid authentication' do
+      before do
+        post "/api/inquiries/#{inquiry.id}/notes",
+        params: {
+          note: {
+            body: 'Dont mention clients hairy nose'
+          }
+        }
+      end
+
+      it 'is expected to return a 401 status' do
+        expect(response).to have_http_status 401
+      end
+
+      it 'is expected to return error message' do
+        expect(response_json['errors'])
+          .to include 'You need to sign in or sign up before continuing.'
+      end
+    end
+  end
 end 
