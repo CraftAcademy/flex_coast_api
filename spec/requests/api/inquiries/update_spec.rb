@@ -57,12 +57,13 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       end
 
       it 'is expected to set inquiry status to done' do
+        binding.pry
         expect(response_json['inquiry']['inquiry_status']).to eq 'done'
       end
 
       it 'is expected to create associated note about when inquiry was finished' do
-        pending_inquiry.reload
-        expect(pending_inquiry.notes.last.body).to eq "When the inquiry status was updated from started to done"
+        started_inquiry.reload
+        expect(started_inquiry.notes.last.body).to eq "This is inquiry was finished #{started_inquiry.updated_at.strftime("%d %b %Y")}"
       end
     end
 
