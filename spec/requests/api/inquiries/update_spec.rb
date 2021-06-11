@@ -30,6 +30,11 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       it 'is expected to set inquiry status to started' do
         expect(response_json['inquiry']['inquiry_status']).to eq 'started'
       end
+
+      it 'is expected to create associated note about when inquiry was started' do
+        pending_inquiry.reload
+        expect(pending_inquiry.notes.last.body).to eq "This is inquiry was started #{pending_inquiry.updated_at.strftime("%d %b %Y")}"
+      end
     end
 
     describe 'from started to done' do
@@ -54,7 +59,42 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       it 'is expected to set inquiry status to done' do
         expect(response_json['inquiry']['inquiry_status']).to eq 'done'
       end
+
+      it 'is expected to create associated note about when inquiry was finished' do
+        started_inquiry.reload
+        expect(started_inquiry.notes.last.body).to eq "This is inquiry was finished #{started_inquiry.updated_at.strftime("%d %b %Y")}"
+      end
     end
+
+    describe 'from started to pending' do
+      let(:started_inquiry) { create(:inquiry, inquiry_status: 'started', broker: broker_1) }
+
+      before do
+        put "/api/inquiries/#{started_inquiry.id}",
+            params: {
+              inquiry: { status_action: 'set_to_pending' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 200 status' do
+        expect(response).to have_http_status 200
+      end
+
+      it 'is expected to respond with a message' do
+        expect(response_json['message']).to eq 'Inquiry has been updated'
+      end
+
+      it 'is expected to set inquiry status to pending' do
+        expect(response_json['inquiry']['inquiry_status']).to eq 'pending'
+      end
+
+      it 'is expected to create associated note about when inquiry was set tp pending' do
+        started_inquiry.reload
+        expect(started_inquiry.notes.last.body).to eq "This is inquiry was shelved #{started_inquiry.updated_at.strftime("%d %b %Y")}"
+      end
+    end
+
   end
 
   describe 'unsuccessfull' do
