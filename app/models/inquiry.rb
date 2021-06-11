@@ -6,15 +6,27 @@ class Inquiry < ApplicationRecord
     state :started, :done
 
     event :start do
-      transitions from: :pending, to: :started
+      transitions from: :pending, to: :started do
+        guard do
+          add_note("This is inquiry was started #{self.updated_at.strftime("%d %b %Y")}")
+        end
+      end
     end
 
     event :finish do
-      transitions from: :started, to: :done
+      transitions from: :started, to: :done do
+        guard do
+          add_note("This is inquiry was finished #{self.updated_at.strftime("%d %b %Y")}")
+        end
+      end
     end
 
     event :set_to_pending do
-      transitions from: :started, to: :pending
+      transitions from: :started, to: :pending do
+        guard do
+          add_note("This is inquiry was shelved #{self.updated_at.strftime("%d %b %Y")}")
+        end
+      end
     end
   end
 
@@ -24,8 +36,7 @@ class Inquiry < ApplicationRecord
 
   validates_presence_of :email
 
-  after_create :send_notifications, :automated_notes
-  after_update :automated_notes
+  after_create :send_notifications
 
   enum office_type: { office: 1, open_space: 2 }
   enum inquiry_status: { pending: 1, started: 2, done: 3 }
@@ -35,23 +46,14 @@ class Inquiry < ApplicationRecord
 
   private
 
-  def send_notifications
-    NotificationService.new_inquiry(self)
+  def add_note(body)
+    self.notes.create(
+      body: body
+    )
   end
 
-  def automated_notes
-    if inquiry_status == "done" && self.inquiry_status_before_last_save == "started"
-      note_body = "This is inquiry was finished #{self.updated_at.strftime("%d %b %Y")}"
-    elsif inquiry_status == "started" && self.inquiry_status_before_last_save == "pending"
-      note_body = "This is inquiry was started #{self.updated_at.strftime("%d %b %Y")}"
-    elsif inquiry_status == "pending" && self.inquiry_status_before_last_save == "started"
-      note_body = "This is inquiry was shelved #{self.updated_at.strftime("%d %b %Y")}"
-    else
-      note_body = "This is inquiry was submitted #{self.created_at.strftime("%d %b %Y")}"
-    end
-
-    self.notes.create(
-      body: note_body
-    )
+  def send_notifications
+    add_note("This is inquiry was submitted #{self.created_at.strftime("%d %b %Y")}")
+    NotificationService.new_inquiry(self)
   end
 end

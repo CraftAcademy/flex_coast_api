@@ -65,8 +65,8 @@ RSpec.describe 'GET /api/inquiries', type: :request do
         expect(response_json['inquiries'].first['notes'].first).to include "id"
       end
 
-      it 'with their created_at' do
-        expect(response_json['inquiries'].first['notes'].first).to include "created_at"
+      it 'with their date' do
+        expect(response_json['inquiries'].first['notes'].first).to include "date"
       end
     end
 
