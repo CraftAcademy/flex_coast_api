@@ -8,6 +8,7 @@ class Inquiry < ApplicationRecord
     event :start do
       transitions from: :pending, to: :started do
         guard do
+          self.save
           add_note("This is inquiry was started #{self.updated_at.strftime("%d %b %Y")}")
         end
       end
@@ -16,6 +17,7 @@ class Inquiry < ApplicationRecord
     event :finish do
       transitions from: :started, to: :done do
         guard do
+          self.save
           add_note("This is inquiry was finished #{self.updated_at.strftime("%d %b %Y")}")
         end
       end
@@ -24,6 +26,7 @@ class Inquiry < ApplicationRecord
     event :set_to_pending do
       transitions from: :started, to: :pending do
         guard do
+          self.save
           add_note("This is inquiry was shelved #{self.updated_at.strftime("%d %b %Y")}")
         end
       end
@@ -47,9 +50,16 @@ class Inquiry < ApplicationRecord
   private
 
   def add_note(body)
-    self.notes.create(
-      body: body
-    )
+    if broker && self.notes != []
+      self.notes.create(
+        body: body,
+        creator_id: broker_id
+      )   
+    else
+      self.notes.create(
+        body: body
+      )
+    end
   end
 
   def send_notifications
