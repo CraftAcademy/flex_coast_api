@@ -61,6 +61,10 @@ RSpec.describe 'GET /api/inquiries', type: :request do
         expect(response_json['inquiries'].first['notes'].first).to include "body"
       end
 
+      it 'with their creator' do
+        expect(response_json['inquiries'].first['notes'].first).to include "creator"
+      end
+
       it 'with their id' do
         expect(response_json['inquiries'].first['notes'].first).to include "id"
       end
