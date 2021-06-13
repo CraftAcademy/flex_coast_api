@@ -84,3 +84,10 @@ inquiries = Inquiry.create ([
     "inquiry_status": "started"
   }
 ])
+puts 'generating intelligent life...'
+User.create(
+  email: "johndoe@flexcoast.se", 
+  name: "John Doe", 
+  encrypted_password: "password"
+)
+

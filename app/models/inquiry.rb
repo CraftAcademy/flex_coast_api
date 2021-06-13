@@ -6,15 +6,27 @@ class Inquiry < ApplicationRecord
     state :started, :done
 
     event :start do
-      transitions from: :pending, to: :started
+      transitions from: :pending, to: :started do
+        guard do
+          add_note("This is inquiry was started #{self.updated_at.strftime("%d %b %Y")}")
+        end
+      end
     end
 
     event :finish do
-      transitions from: :started, to: :done
+      transitions from: :started, to: :done do
+        guard do
+          add_note("This is inquiry was finished #{self.updated_at.strftime("%d %b %Y")}")
+        end
+      end
     end
 
     event :set_to_pending do
-      transitions from: :started, to: :pending
+      transitions from: :started, to: :pending do
+        guard do
+          add_note("This is inquiry was shelved #{self.updated_at.strftime("%d %b %Y")}")
+        end
+      end
     end
   end
 
@@ -30,10 +42,25 @@ class Inquiry < ApplicationRecord
   enum inquiry_status: { pending: 1, started: 2, done: 3 }
 
   belongs_to :broker, class_name: 'User', optional: true
+  has_many :notes
 
   private
 
+  def add_note(body)
+    if self.broker && self.notes != []
+      self.notes.create(
+        body: body,
+        creator: self.broker
+      )   
+    else
+      self.notes.create(
+        body: body
+      )
+    end
+  end
+
   def send_notifications
+    add_note("This is inquiry was submitted #{self.created_at.strftime("%d %b %Y")}")
     NotificationService.new_inquiry(self)
   end
 end

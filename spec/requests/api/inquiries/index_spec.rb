@@ -56,6 +56,24 @@ RSpec.describe 'GET /api/inquiries', type: :request do
       expect(response_json['inquiries'].first['inquiry_date']).to eq Time.zone.now.strftime('%d %b %Y')
     end
 
+    describe 'is expected to return inquiry notes' do
+      it 'with their body' do
+        expect(response_json['inquiries'].first['notes'].first).to include "body"
+      end
+
+      it 'with their creator' do
+        expect(response_json['inquiries'].first['notes'].first).to include "creator"
+      end
+
+      it 'with their id' do
+        expect(response_json['inquiries'].first['notes'].first).to include "id"
+      end
+
+      it 'with their date' do
+        expect(response_json['inquiries'].first['notes'].first).to include "date"
+      end
+    end
+
     describe 'is expected to include broker details' do
       it 'with their name' do
         expect(response_json['inquiries'].first['broker']['email']).to eq 'broker@email.com'
