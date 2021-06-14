@@ -1,3 +1,12 @@
+User.destroy_all
+Inquiry.destroy_all
+
+puts 'generating intelligent life...'
+broker = User.create(
+  email: "johndoe@flexcoast.se", 
+  name: "John Doe", 
+  password: "password"
+)
 puts 'creating inquiries...'
 inquiries = Inquiry.create ([
   {
@@ -29,7 +38,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City", "Southside"],
     "start_date": "21 Jun 2021",
-    "inquiry_status": "done"
+    "inquiry_status": "done",
+    "broker_id": broker.id 
   },
   {
     "id": 3,
@@ -42,7 +52,9 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City", "Southside"],
     "start_date": "21 Jun 2021",
-    "inquiry_status": "started"
+    "inquiry_status": "started",
+    "broker_id": broker.id 
+
   },
   {
     "id": 4,
@@ -55,7 +67,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City", "Nordstan"],
     "start_date": "05 Jul 2021",
-    "inquiry_status": "started"
+    "inquiry_status": "started",
+    "broker_id": broker.id 
   },
   {
     "id": 5,
@@ -68,7 +81,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City"],
     "start_date": "04 Aug 2021",
-    "inquiry_status": "started"
+    "inquiry_status": "started",
+    "broker_id": broker.id 
   },
   {
     "id": 6,
@@ -81,13 +95,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City"],
     "start_date": "15 Jun 2021",
-    "inquiry_status": "started"
+    "inquiry_status": "started",
+    "broker_id": broker.id 
   }
 ])
-puts 'generating intelligent life...'
-User.create(
-  email: "johndoe@flexcoast.se", 
-  name: "John Doe", 
-  encrypted_password: "password"
-)
 
