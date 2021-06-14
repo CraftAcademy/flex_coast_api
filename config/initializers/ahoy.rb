@@ -1,6 +1,11 @@
 class Ahoy::Store < Ahoy::DatabaseStore
 end
 
+if Rails.env.test? 
+  Ahoy.track_bots = true
+end
+
+Ahoy.visit_duration = 3.seconds
 # set to true for JavaScript tracking
 Ahoy.api = false
 
