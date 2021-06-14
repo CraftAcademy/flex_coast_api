@@ -1,16 +1,32 @@
 RSpec.describe 'POST /api/ahoy/visits', type: :request do
-  before do
-    events_json = '[{"name":"Site visit","properties":{},"time":1623687728.934,"id":"3b1ca2be-024e-4608-9048-5c76bf1730e9","js":true}]'
-    post '/api/ahoy/visits', params: {
-      visit_token: SecureRandom.uuid,
-      visitor_token: SecureRandom.uuid,
+  let(:visitor_token) { SecureRandom.uuid }
+  let(:visit_token) { SecureRandom.uuid }
+  let(:visit_data) do
+    { visit_token: visit_token,
+      visitor_token: visitor_token,
       js: true,
-      name: 'Site visit',
-      time: DateTime.now.to_i
+      platform: 'Web',
+      screen_height: 1080,
+      screen_width: 1920,  
+    }.to_json
+  end
+  let(:visit_headers) do
+    {
+      'Ahoy-Visit': visit_token,
+      'Ahoy-Visitor': visitor_token,
+      'Content-Type': 'application/json',
+      'HTTP_USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36'
     }
   end
 
-  it 'does something' do
-    binding.pry
+  before do
+    post '/api/ahoy/visits', params: visit_data, headers: visit_headers
+    @visit = Ahoy::Visit.last
   end
+
+  it 'is expected to create a Visit' do
+    binding.pry
+    expect(@visit).to be_an_instance_of Ahoy::Visit
+  end
+
 end
