@@ -72,15 +72,15 @@ RSpec.describe 'GET /api/inquiries', type: :request do
 
     describe 'is expected to include broker details' do
       it 'with their name' do
-        expect(response_json['inquiries'].first['broker']['email']).to eq 'broker@email.com'
+        expect(response_json['inquiries'].last['broker']['email']).to eq 'broker@email.com'
       end
 
       it 'with their email' do
-        expect(response_json['inquiries'].first['broker']['name']).to eq 'John Doe'
+        expect(response_json['inquiries'].last['broker']['name']).to eq 'John Doe'
       end
 
       it 'with their id' do
-        expect(response_json['inquiries'].first['broker']['id']).to eq broker.id
+        expect(response_json['inquiries'].last['broker']['id']).to eq broker.id
       end
     end
   end

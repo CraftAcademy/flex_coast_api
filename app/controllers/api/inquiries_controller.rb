@@ -15,7 +15,7 @@ class Api::InquiriesController < ApplicationController
   end
 
   def index
-    inquiries = Inquiry.all
+    inquiries = Inquiry.order(created_at: :desc).all
     render json: inquiries, each_serializer: Inquiries::IndexSerializer
   end
 
