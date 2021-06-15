@@ -1,4 +1,4 @@
-Notes.destroy_all
+Note.destroy_all
 Inquiry.destroy_all
 User.destroy_all
 
