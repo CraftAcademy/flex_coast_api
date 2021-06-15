@@ -1,6 +1,5 @@
 class Api::InquiriesController < ApplicationController
   before_action :authenticate_user!, only: :update
-
   rescue_from StandardError, with: :rescue_from_standard_error
 
   def create
@@ -41,7 +40,7 @@ class Api::InquiriesController < ApplicationController
   private
 
   def authorize_resource(inquiry)
-    render json: { message: 'You are not authorized to do this' },  status: 422 unless authorized?(inquiry, :update?)
+    render json: { message: 'You are not authorized to do this' }, status: 422 unless authorized?(inquiry, :update?)
   end
 
   def inquiry_params
@@ -50,6 +49,6 @@ class Api::InquiriesController < ApplicationController
   end
 
   def rescue_from_standard_error(error)
-    render json: {message: error.message}, status: 422
+    render json: { message: error.message }, status: 422
   end
 end
