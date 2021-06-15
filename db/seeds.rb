@@ -1,5 +1,5 @@
-User.destroy_all
 Inquiry.destroy_all
+User.destroy_all
 
 puts 'generating intelligent life...'
 broker = User.create(
