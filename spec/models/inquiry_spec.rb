@@ -84,10 +84,6 @@ RSpec.describe Inquiry, type: :model do
         .of_type(:string)
     }
     it {
-      is_expected.to have_db_column(:start_date)
-        .of_type(:string)
-    }
-    it {
       is_expected.to have_db_column(:inquiry_status)
         .of_type(:integer)
     }

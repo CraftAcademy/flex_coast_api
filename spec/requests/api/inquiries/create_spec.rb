@@ -14,7 +14,6 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                flexible: 'yes',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
-               start_date: '2021-06-21'
              }
            }
     end
@@ -45,7 +44,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       end
 
       it 'is expedted to return details of inquiry in subject' do
-        expect(mail_delivery[0].subject).to include('New inquiry, 2021-06-21')
+        expect(mail_delivery[0].subject).to include("New inquiry, #{Inquiry.last.created_at.strftime("%d %b %Y")}")
       end
 
       describe 'is expected to have inquiry detals in the body regarding' do
@@ -76,10 +75,6 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         it 'location' do
           expect(mail_delivery[0].body).to include('Gothenburg City', 'Southside')
         end
-
-        it 'start date' do
-          expect(mail_delivery[0].body).to include('2021-06-21')
-        end
       end
     end
   end
@@ -98,7 +93,6 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                flexible: 'yes',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
-               start_date: '2021-06-21'
              }
            }
     end

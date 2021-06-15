@@ -6,7 +6,6 @@ FactoryBot.define do
     peers { true }
     email { 'mrfake@fake.com' }
     flexible { 1 }
-    start_date { '2021-06-16' }
     phone { '0707123456' }
     locations { %w[Nordstaden Avenyn] }
   end
