@@ -107,7 +107,7 @@ RSpec.describe Inquiry, type: :model do
   describe 'Office type' do
     it {
       is_expected.to define_enum_for(:office_type)
-        .with_values({ office: 1, open_space: 2 })
+        .with_values({ office: 1, open_space: 2, both: 3 })
     }
   end
 
