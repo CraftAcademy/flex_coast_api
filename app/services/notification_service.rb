@@ -8,7 +8,7 @@ module NotificationService
       webhook_url: Rails.application.credentials.dig(:slack, :webhook_url)
     )
     client.notify(
-      "New Inquiry From #{inquiry.company} In Your Inbox", 
+      "New Inquiry From #{inquiry.email} In Your Inbox", 
       '#flex-coast-notify'
     )
   end

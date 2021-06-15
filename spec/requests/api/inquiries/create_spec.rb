@@ -9,13 +9,11 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                size: 1,
                office_type: 'office',
                inquiry_status: 'pending',
-               company: 'Craft',
                peers: true,
                email: 'example@example.com',
-               flexible: true,
+               flexible: 'yes',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
-               start_date: '2021-06-21'
              }
            }
     end
@@ -37,7 +35,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     end
 
     it 'is expected to create note associated to inquiry about when it got submited' do
-      expect(Inquiry.last.notes.last.body).to eq "This is inquiry was submitted #{Inquiry.last.created_at.strftime("%d %b %Y")}"
+      expect(Inquiry.last.notes.last.body).to eq "This is inquiry was submitted."
     end
 
     describe 'outgoing email' do
@@ -46,7 +44,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       end
 
       it 'is expedted to return details of inquiry in subject' do
-        expect(mail_delivery[0].subject).to include('New inquiry, 2021-06-21')
+        expect(mail_delivery[0].subject).to include("New inquiry, #{Inquiry.last.created_at.strftime("%d %b %Y")}")
       end
 
       describe 'is expected to have inquiry detals in the body regarding' do
@@ -56,10 +54,6 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
         it 'office type' do
           expect(mail_delivery[0].body).to include('office')
-        end
-
-        it 'company' do
-          expect(mail_delivery[0].body).to include('Craft')
         end
 
         it 'peers' do
@@ -81,10 +75,6 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         it 'location' do
           expect(mail_delivery[0].body).to include('Gothenburg City', 'Southside')
         end
-
-        it 'start date' do
-          expect(mail_delivery[0].body).to include('2021-06-21')
-        end
       end
     end
   end
@@ -100,10 +90,9 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                company: 'Craft',
                peers: true,
                email: '',
-               flexible: true,
+               flexible: 'yes',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
-               start_date: '2021-06-21'
              }
            }
     end
