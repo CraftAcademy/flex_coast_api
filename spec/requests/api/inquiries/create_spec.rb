@@ -36,7 +36,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     end
 
     it 'is expected to create note associated to inquiry about when it got submited' do
-      expect(Inquiry.last.notes.last.body).to eq "This is inquiry was submitted #{Inquiry.last.created_at.strftime("%d %b %Y")}"
+      expect(Inquiry.last.notes.last.body).to eq "This is inquiry was submitted."
     end
 
     describe 'outgoing email' do
