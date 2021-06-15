@@ -68,8 +68,8 @@ RSpec.describe Inquiry, type: :model do
         .of_type(:integer)
     }
     it {
-      is_expected.to have_db_column(:company)
-        .of_type(:string)
+      is_expected.to have_db_column(:flexible)
+        .of_type(:integer)
     }
     it {
       is_expected.to have_db_column(:peers)

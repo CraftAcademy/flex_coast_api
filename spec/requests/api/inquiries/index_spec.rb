@@ -28,10 +28,6 @@ RSpec.describe 'GET /api/inquiries', type: :request do
       expect(response_json['inquiries'].first['inquiry_status']).to eq 'pending'
     end
 
-    it 'is expected to include the inquiry\'s company name' do
-      expect(response_json['inquiries'].first['company']).to eq 'Company'
-    end
-
     it 'is expected to include the inquiry\'s peer request' do
       expect(response_json['inquiries'].first['peers']).to eq true
     end
