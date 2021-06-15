@@ -28,10 +28,6 @@ RSpec.describe 'GET /api/inquiries', type: :request do
       expect(response_json['inquiries'].first['inquiry_status']).to eq 'pending'
     end
 
-    it 'is expected to include the inquiry\'s company name' do
-      expect(response_json['inquiries'].first['company']).to eq 'Company'
-    end
-
     it 'is expected to include the inquiry\'s peer request' do
       expect(response_json['inquiries'].first['peers']).to eq true
     end
@@ -40,8 +36,8 @@ RSpec.describe 'GET /api/inquiries', type: :request do
       expect(response_json['inquiries'].first['email']).to eq 'mrfake@fake.com'
     end
 
-    it 'is expected to include the inquiry\'s peer request' do
-      expect(response_json['inquiries'].first['flexible']).to eq true
+    it 'is expected to include the inquiry\'s flexibility preference' do
+      expect(response_json['inquiries'].first['flexible']).to eq 'yes'
     end
 
     it 'is expected to include the inquiry\'s start date' do
@@ -76,15 +72,15 @@ RSpec.describe 'GET /api/inquiries', type: :request do
 
     describe 'is expected to include broker details' do
       it 'with their name' do
-        expect(response_json['inquiries'].first['broker']['email']).to eq 'broker@email.com'
+        expect(response_json['inquiries'].last['broker']['email']).to eq 'broker@email.com'
       end
 
       it 'with their email' do
-        expect(response_json['inquiries'].first['broker']['name']).to eq 'John Doe'
+        expect(response_json['inquiries'].last['broker']['name']).to eq 'John Doe'
       end
 
       it 'with their id' do
-        expect(response_json['inquiries'].first['broker']['id']).to eq broker.id
+        expect(response_json['inquiries'].last['broker']['id']).to eq broker.id
       end
     end
   end
