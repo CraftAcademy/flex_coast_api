@@ -1,5 +1,5 @@
 class Notes::Serializer < ActiveModel::Serializer
-  attributes :body, :id, :date, :creator
+  attributes :body, :id, :date, :creator 
 
   def date
     object.created_at.strftime("%d %b %Y")

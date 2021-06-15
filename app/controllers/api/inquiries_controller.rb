@@ -15,7 +15,7 @@ class Api::InquiriesController < ApplicationController
   end
 
   def index
-    inquiries = Inquiry.all
+    inquiries = Inquiry.order(created_at: :desc).all
     render json: inquiries, each_serializer: Inquiries::IndexSerializer
   end
 
@@ -45,7 +45,7 @@ class Api::InquiriesController < ApplicationController
   end
 
   def inquiry_params
-    params.require(:inquiry).permit(:size, :office_type, :inquiry_status, :company, :start_date, :peers, :email, :flexible,
+    params.require(:inquiry).permit(:size, :office_type, :inquiry_status, :peers, :email, :flexible,
                                       :phone, locations: [])
   end
 
