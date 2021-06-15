@@ -3,9 +3,9 @@ end
 
 if Rails.env.test? 
   Ahoy.track_bots = true
+  Ahoy.visit_duration = 3.seconds
 end
 
-Ahoy.visit_duration = 3.seconds
 # set to true for JavaScript tracking
 Ahoy.api = false
 
