@@ -40,8 +40,8 @@ RSpec.describe 'GET /api/inquiries', type: :request do
       expect(response_json['inquiries'].first['email']).to eq 'mrfake@fake.com'
     end
 
-    it 'is expected to include the inquiry\'s peer request' do
-      expect(response_json['inquiries'].first['flexible']).to eq true
+    it 'is expected to include the inquiry\'s flexibility preference' do
+      expect(response_json['inquiries'].first['flexible']).to eq 'yes'
     end
 
     it 'is expected to include the inquiry\'s start date' do
