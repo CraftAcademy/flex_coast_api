@@ -12,7 +12,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                company: 'Craft',
                peers: true,
                email: 'example@example.com',
-               flexible: true,
+               flexible: 'yes',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
                start_date: '2021-06-21'
@@ -100,7 +100,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                company: 'Craft',
                peers: true,
                email: '',
-               flexible: true,
+               flexible: 'yes',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
                start_date: '2021-06-21'
