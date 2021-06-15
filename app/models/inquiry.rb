@@ -28,6 +28,15 @@ class Inquiry < ApplicationRecord
         end
       end
     end
+
+    event :set_to_started do
+      transitions from: :done, to: :started do
+        guard do
+          add_note("This is inquiry was not actually finished.")
+        end
+      end
+    end
+
   end
 
   def aasm_event_failed(event_name, old_state_name)
