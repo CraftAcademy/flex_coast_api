@@ -102,6 +102,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
              }
            }
     end
+    
 
     it 'is expected to return a 422 status' do
       expect(response).to have_http_status 422

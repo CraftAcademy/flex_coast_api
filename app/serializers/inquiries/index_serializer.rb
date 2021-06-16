@@ -9,5 +9,5 @@ class Inquiries::IndexSerializer < ActiveModel::Serializer
   def broker
     return nil unless object.broker
     Users::Serializer.new(object.broker)
-  end 
+  end
 end
