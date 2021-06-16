@@ -87,6 +87,10 @@ RSpec.describe Inquiry, type: :model do
       is_expected.to have_db_column(:inquiry_status)
         .of_type(:integer)
     }
+    it {
+      is_expected.to have_db_column(:start_date)
+        .of_type(:integer)
+    }
     it 'is expected to have db column locations of type array' do
       expect(subject[:locations]).is_a?(Array)
     end
@@ -114,6 +118,13 @@ RSpec.describe Inquiry, type: :model do
     it {
       is_expected.to define_enum_for(:inquiry_status)
         .with_values({ pending: 1, started: 2, done: 3 })
+    }
+  end
+
+  describe 'Start date' do
+    it {
+      is_expected.to define_enum_for(:start_date)
+        .with_values({ now: 1, quarter: 2, unsure: 3 })
     }
   end
 
