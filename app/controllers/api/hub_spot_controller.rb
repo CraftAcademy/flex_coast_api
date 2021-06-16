@@ -5,6 +5,7 @@ class Api::HubSpotController < ApplicationController
     inquiry = Inquiry.find(params[:inquiry_id])
 
     HubSpotService.move(inquiry)
+    inquiry.notes.create(body: "This contact was exported to HubSpot", creator: current_user)
     render json: { message: 'Successfully added to HubSpot' }
   rescue => error
     if error.message == "409 Conflict"

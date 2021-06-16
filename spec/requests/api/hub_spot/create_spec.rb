@@ -35,6 +35,11 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
       expect(response_json['message']).to eq 'Successfully added to HubSpot'
     end
 
+    it 'is expected to create note associated to inquiry about HubSpot export' do
+      inquiry.reload
+      expect(inquiry.notes.last.body).to eq 'This contact was exported to HubSpot'
+    end
+
     it 'is expected to send off HubSpot request for contact' do
       expect(a_request(
         :post, 
