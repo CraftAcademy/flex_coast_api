@@ -36,11 +36,10 @@ RSpec.describe 'GET, api/analytics', type: :request do
     expect(response_json['statistics']['events']['answers'].count).to eq 10
   end
 
-  # I'm not really clear on what you want to test for here....
-  # it 'is expected to sort wizard answers in an appropriate format' do
-  #   expected_response = { 'value' => 3, 'name' => 'size' }
-  #   expect(response_json['statistics']['events']['answers'].second).to eq expected_response
-  # end
+  it 'is expected to sort wizard answers in an appropriate format' do
+    expected_response = { 'value' => 2, 'name' => 'size' }
+    expect(response_json['statistics']['events']['answers'].second).to eq expected_response
+  end
 
   it 'is expected to respond with total number of phone button presses' do
     expect(response_json['statistics']['events']['calls']).to eq 1
