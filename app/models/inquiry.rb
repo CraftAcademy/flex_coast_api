@@ -50,6 +50,7 @@ class Inquiry < ApplicationRecord
   enum office_type: { office: 1, open_space: 2, combined: 3 }
   enum inquiry_status: { pending: 1, started: 2, done: 3 }
   enum flexible: { yes: 1, no: 2, mixed: 3 }
+  enum start_date: { now: 1, quarter: 2, unsure: 3 }
 
   belongs_to :broker, class_name: 'User', optional: true
   has_many :notes

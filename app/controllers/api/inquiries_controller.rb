@@ -4,7 +4,6 @@ class Api::InquiriesController < ApplicationController
 
   def create
     inquiry = Inquiry.create(inquiry_params)
-
     if inquiry.persisted?
       render json: { message: 'Thanks for your answers! We\'ll be in touch' }
     else
@@ -45,7 +44,7 @@ class Api::InquiriesController < ApplicationController
 
   def inquiry_params
     params.require(:inquiry).permit(:size, :office_type, :inquiry_status, :peers, :email, :flexible,
-                                      :phone, locations: [])
+                                      :phone, :start_date, locations: [])
   end
 
   def rescue_from_standard_error(error)
