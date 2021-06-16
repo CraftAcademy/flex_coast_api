@@ -1,5 +1,5 @@
 module HubSpotService
-  @api_key = '56f4911a-36e3-4b55-8377-7e9bd190e402'
+  @api_key = Rails.application.credentials.dig(:hub_spot, :api_key)
   def self.move(inquiry)
     contact = create_contact(inquiry)
     id = JSON.parse(contact.body)['vid']

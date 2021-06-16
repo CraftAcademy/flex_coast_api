@@ -19,8 +19,12 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
       expect(response_json['message']).to eq 'Successfully added to HubSpot'
     end
 
-    it 'is expected to send off HubSpot request' do
-      expect(a_request(:post, "https://api.hubapi.com/contacts/v1/contact?hapikey=56f4911a-36e3-4b55-8377-7e9bd190e402")).to have_been_made.times(1)
+    it 'is expected to send off HubSpot request for contact' do
+      expect(a_request(:post, "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}")).to have_been_made.times(1)
+    end
+
+    it 'is expected to send off HubSpot request for note' do
+      expect(a_request(:post, "https://api.hubapi.com/engagements/v1/engagements?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}")).to have_been_made.times(1)
     end
   end
 end
