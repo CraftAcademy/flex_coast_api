@@ -1,17 +1,33 @@
 module HubSpotService
-  def self.move
-    api_key = 'key'
-    client = RestClient.post(
+  def self.move(inquiry)
+    api_key = '56f4911a-36e3-4b55-8377-7e9bd190e402'
+    contact = RestClient.post(
       "https://api.hubapi.com/contacts/v1/contact?hapikey=#{api_key}",
       {
         properties: [
-          { property: 'email', value: 'thomas+5@craftacademy.se' },
-          { property: 'phone', value: '031-101010' }
+          { property: 'email', value: inquiry.email },
+          { property: 'phone', value: inquiry.phone }
         ]
       }.to_json, { content_type: :json, accept: :json }
     )
     # binding.pry
-    id = JSON.parse(client.body)['vid']
+    id = JSON.parse(contact.body)['vid']
+    locations = inquiry.locations.map do |location|
+      location
+    end
+    note = "
+    The following data was provided by the user:</br>
+    <ul>
+    <li>Size: #{inquiry.size}</li>
+    <li>Office type: #{inquiry.office_type}</li>
+    <li>Peers: #{inquiry.peers}</li>
+    <li>Email: #{inquiry.email}</li>
+    <li>Flexible: #{inquiry.flexible}</li>
+    <li>Phone: #{inquiry.phone}</li>
+    </ul>
+
+    Locations: #{locations}"
+
     note = RestClient.post(
       "https://api.hubapi.com/engagements/v1/engagements?hapikey=#{api_key}",
       {
@@ -22,15 +38,11 @@ module HubSpotService
           "timestamp": DateTime.now.to_i
         },
         "associations": {
-          "contactIds": [id],
-          "companyIds": [],
-          "dealIds": [],
-          "ownerIds": [],
-          "ticketIds": []
+          "contactIds": [id]
         },
-        
+
         "metadata": {
-          "body": 'Here we will add inquiry details'
+          "body": note
         }
       }.to_json, { content_type: :json, accept: :json }
     )
