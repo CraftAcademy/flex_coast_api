@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     mount Ahoy::Engine => "/ahoy"
     resources :inquiries, only: %i[create index update] do
       resources :notes, only: :create
+      resources :hub_spot, only: :create
     end
   end
 end
