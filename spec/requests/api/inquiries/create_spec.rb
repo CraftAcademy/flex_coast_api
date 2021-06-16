@@ -12,6 +12,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                peers: true,
                email: 'example@example.com',
                flexible: 'yes',
+               start_date: 'now',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
              }
@@ -68,6 +69,10 @@ RSpec.describe 'POST /api/inquiries', type: :request do
           expect(mail_delivery[0].body).to include('true')
         end
 
+        it 'start date' do
+          expect(mail_delivery[0].body).to include('now')
+        end
+
         it 'phone' do
           expect(mail_delivery[0].body).to include('0707123456')
         end
@@ -91,6 +96,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                peers: true,
                email: '',
                flexible: 'yes',
+               start_date: 'now',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
              }
