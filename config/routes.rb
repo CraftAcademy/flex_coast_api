@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :inquiries, only: %i[create index update] do
       resources :notes, only: :create
     end
+    resources :analytics, only: :index
   end
 end
   
