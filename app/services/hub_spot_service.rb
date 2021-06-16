@@ -5,7 +5,7 @@ module HubSpotService
     id = JSON.parse(contact.body)['vid']
     note = format_note(inquiry)
     timestamp = DateTime.now.to_i * 1000
-    create_note(note, id, timestamp)
+    response = create_note(note, id, timestamp)
     true
   end
 
