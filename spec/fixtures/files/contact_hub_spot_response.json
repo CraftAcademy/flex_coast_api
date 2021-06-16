@@ -4,13 +4,10 @@
   "merged-vids": [],
   "portal-id": 20246979,
   "is-contact": true,
-  "properties":
-   {
-    "phone":
-     {
+  "properties": {
+    "phone": {
       "value": "0707123456",
-      "versions":
-       [
+      "versions": [
         {
           "value": "0707123456",
           "source-type": "API",
@@ -22,11 +19,9 @@
         }
       ]
     },
-    "email":
-     {
+    "email": {
       "value": "mrfake@fake.com",
-      "versions":
-       [
+      "versions": [
         {
           "value": "mrfake@fake.com",
           "source-type": "API",
@@ -41,8 +36,7 @@
   },
   "form-submissions": [],
   "list-memberships": [],
-  "identity-profiles":
-   [
+  "identity-profiles": [
     {
       "vid": 851,
       "is-deleted": false,
@@ -52,8 +46,7 @@
       "linked-vids": [],
       "saved-at-timestamp": 0,
       "deleted-changed-timestamp": 0,
-      "identities":
-      [
+      "identities": [
         {
           "type": "EMAIL",
           "value": "mrfake@fake.com",

@@ -1,13 +1,13 @@
 module HubSpotService
   @api_key = Rails.application.credentials.dig(:hub_spot, :api_key)
   def self.move(inquiry)
-    contact = create_contact(inquiry)
-    id = JSON.parse(contact.body)['vid']
+    @contact = create_contact(inquiry)
+    id = JSON.parse(@contact.body)['vid']
     note = format_note(inquiry)
     timestamp = DateTime.now.to_i * 1000
-    response = create_note(note, id, timestamp)
+    @response = create_note(note, id, timestamp)
     true
-  end
+ end
 
   private
 
