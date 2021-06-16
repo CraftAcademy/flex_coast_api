@@ -23,7 +23,6 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
       )
   
       post "/api/inquiries/#{inquiry.id}/hub_spot",
-        params: {},
         headers: broker_headers
     end
 
@@ -37,7 +36,7 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
 
     it 'is expected to create note associated to inquiry about HubSpot export' do
       inquiry.reload
-      expect(inquiry.notes.last.body).to eq 'This contact was exported to HubSpot'
+      expect(inquiry.notes.last.body).to eq 'This inquiry was exported to HubSpot'
     end
 
     it 'is expected to send off HubSpot request for contact' do
@@ -67,7 +66,6 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
         )
 
         post "/api/inquiries/#{inquiry.id}/hub_spot",
-          params: {},
           headers: broker_headers
       end
 
@@ -84,7 +82,6 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
     describe 'with invalid param' do
       before do
         post "/api/inquiries/420/hub_spot",
-        params: {},
         headers: broker_headers
       end
 
