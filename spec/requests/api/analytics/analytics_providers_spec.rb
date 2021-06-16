@@ -18,10 +18,43 @@ RSpec.describe 'GET, api/analytics', type: :request do
       'HTTP_USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36'
     }
   end
+  let(:wizard_event_data) do
+    {
+      visit_token: visit_token,
+      visitor_token: visitor_token,
+      events: [
+        {
+          name: 'answer',
+          properties: {
+            value: 4,
+            question: 'size',
+            size: 4
+          },
+          time: "2018-01-01T00:00:00-07:00"
+        }
+      ]
+    }.to_json
+  end
+
+  let(:call_button_event_data) do
+    {
+      visit_token: visit_token,
+      visitor_token: visitor_token,
+      events: [
+        {
+          name: 'phone_button',
+          time: "2018-01-01T00:00:00-07:00"
+        }
+      ]
+    }.to_json
+  end
 
   before do
     post '/api/ahoy/visits', params: visit_data, headers: visit_headers
-    post '/api/ahoy/events', 
+    post '/api/ahoy/events', params: wizard_event_data, headers: visit_headers
+    post '/api/ahoy/events', params: wizard_event_data, headers: visit_headers
+    post '/api/ahoy/events', params: wizard_event_data, headers: visit_headers
+    post '/api/ahoy/events', params: call_button_event_data, headers: visit_headers
   end
 
   before do
@@ -29,10 +62,19 @@ RSpec.describe 'GET, api/analytics', type: :request do
   end
 
   it 'is expected to return a total number of visits' do
-    expect(response_json['statistics']['events']['answers']).to eq 10
+    expect(response_json['statistics']['visits']['total']).to eq 1
   end
 
-  it 'is expected to respond with a list of events' do
-    expect(response_json['statistics']['events']['answers']).to eq ''
+  it 'is expected to respond with a list of data for each question in wizard' do
+    expect(response_json['statistics']['events']['answers'].count).to eq 10
+  end
+
+  it 'is expected to sort wizard answers in an appropriate format' do
+    expected_response = { "value" => 3, "name" => 'size' }
+    expect(response_json['statistics']['events']['answers'].second()).to eq expected_response
+  end
+
+  it 'is expected to respond with total number of phone button presses' do
+    expect(response_json['statistics']['events']['calls']).to eq 1
   end
 end
