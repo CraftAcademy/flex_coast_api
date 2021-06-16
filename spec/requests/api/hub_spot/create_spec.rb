@@ -11,8 +11,7 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
         "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
       ).to_return(
         status: 200, 
-        body: file_fixture("contact_hub_spot_response.json").read, 
-        headers: {}
+        body: file_fixture("contact_hub_spot_response.json").read
       )
   
       stub_request(
@@ -20,8 +19,7 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
         "https://api.hubapi.com/engagements/v1/engagements?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
       ).to_return(
         status: 200, 
-        body: file_fixture("note_hub_spot_response.json").read, 
-        headers: {}
+        body: file_fixture("note_hub_spot_response.json").read
       )
   
       post "/api/inquiries/#{inquiry.id}/hub_spot",
@@ -60,8 +58,7 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
           "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
         ).to_return(
           status: 409, 
-          body: file_fixture("error_hub_spot_response.json").read, 
-          headers: {}
+          body: file_fixture("error_hub_spot_response.json").read
         )
 
         post "/api/inquiries/#{inquiry.id}/hub_spot",
