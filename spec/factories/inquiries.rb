@@ -8,5 +8,6 @@ FactoryBot.define do
     flexible { 1 }
     phone { '0707123456' }
     locations { %w[Nordstaden Avenyn] }
+    start_date { 1 }
   end
 end

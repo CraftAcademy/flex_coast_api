@@ -4,7 +4,6 @@ class Api::InquiriesController < ApplicationController
 
   def create
     inquiry = Inquiry.create(inquiry_params)
-
     if inquiry.persisted?
       render json: { message: 'Thanks for your answers! We\'ll be in touch' }
     else

@@ -121,6 +121,13 @@ RSpec.describe Inquiry, type: :model do
     }
   end
 
+  describe 'Start date' do
+    it {
+      is_expected.to define_enum_for(:start_date)
+        .with_values({ now: 1, quarter: 2, unsure: 3 })
+    }
+  end
+
   describe 'Associations' do
     it { is_expected.to have_many :notes }
   end
