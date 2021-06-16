@@ -1,4 +1,4 @@
-RSpec.describe 'POST /api/inquiries', type: :request do
+rRSpec.describe 'POST /api/inquiries', type: :request do
   describe 'successfully' do
     let(:mail_delivery) { ActionMailer::Base.deliveries }
 
