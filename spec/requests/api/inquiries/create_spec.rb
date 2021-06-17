@@ -89,11 +89,11 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       end
 
       it 'is expected to return details of inquiry in the subject' do
-        expect(mail_delivery[1].subject).to include("FlexCoast recieved your inquiry!")
+        expect(mail_delivery[1].subject).to include("FlexCost is on top of things!")
       end
 
       it 'is expected to contain welcome message in body' do
-        expect(mail_delivery[1].body).to include('Welcome to FlexCoast blablabla')
+        expect(mail_delivery[1].body).to include("We have you covered! You are looking for an office for #{Inquiry.last.size} people and we will find one for you. Expect to hear from us within a day or two...")
       end
     end
   end
