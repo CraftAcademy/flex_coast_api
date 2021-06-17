@@ -25,7 +25,7 @@ class Api::AnalyticsController < ApplicationController
       Hash[:name, answer_key, :value, Ahoy::Event.where_event('answer', question: answer_key).count]
     end
     answers_stats.unshift({ value: @statistics[:visits][:total],
-                           name: 'total' })
+                            name: 'total' })
     @statistics[:events] = {
       answers: answers_stats
     }
