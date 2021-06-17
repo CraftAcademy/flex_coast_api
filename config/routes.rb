@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :notes, only: :create
       resources :hub_spot, only: :create
     end
+    resources :analytics, only: :index
   end
 end
   
