@@ -85,11 +85,11 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
     describe 'outgoing email to person that submitted inquiry' do
       it 'is expected to send email to the inquiry submitter' do
-        expect(mail_delivery[1].to).to eq 'example@example.com'
+        expect(mail_delivery[1].to.first).to eq 'example@example.com'
       end
 
       it 'is expected to return details of inquiry in the subject' do
-        expect(mail_delivery[1].subject).to include("FlexCoast recieved your inquiry")
+        expect(mail_delivery[1].subject).to include("FlexCoast recieved your inquiry!")
       end
 
       it 'is expected to contain welcome message in body' do
