@@ -133,9 +133,9 @@ RSpec.describe Inquiry, type: :model do
   end
 
   describe 'Hooks' do
-    it 'is expected to send notification email' do
+    it 'is expected to send notification email to broker & submitter' do
       expect { create(:inquiry) }
-        .to change { mail_delivery.count }.from(0).to(1)
+        .to change { mail_delivery.count }.from(0).to(2)
     end
   end
 
