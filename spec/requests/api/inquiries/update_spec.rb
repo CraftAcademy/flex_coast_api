@@ -30,6 +30,11 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       it 'is expected to set inquiry status to started' do
         expect(response_json['inquiry']['inquiry_status']).to eq 'started'
       end
+
+      it 'is expected to create associated note about when inquiry was started' do
+        pending_inquiry.reload
+        expect(pending_inquiry.notes.last.body).to eq "This is inquiry was started."
+      end
     end
 
     describe 'from started to done' do
@@ -54,7 +59,73 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
       it 'is expected to set inquiry status to done' do
         expect(response_json['inquiry']['inquiry_status']).to eq 'done'
       end
+
+      it 'is expected to create associated note about when inquiry was finished' do
+        started_inquiry.reload
+        expect(started_inquiry.notes.last.body).to eq "This is inquiry was finished."
+      end
     end
+
+    describe 'from done to started' do
+      let(:done_inquiry) { create(:inquiry, inquiry_status: 'done', broker: broker_1) }
+
+      before do
+        put "/api/inquiries/#{done_inquiry.id}",
+            params: {
+              inquiry: { status_action: 'set_to_started' }
+            },
+            headers: broker_headers
+      end
+
+      
+      it 'is expected to return a 200 status' do
+        expect(response).to have_http_status 200
+      end
+
+      it 'is expected to respond with a message' do
+        expect(response_json['message']).to eq 'Inquiry has been updated'
+      end
+
+      it 'is expected to set inquiry status to done' do
+        expect(response_json['inquiry']['inquiry_status']).to eq 'started'
+      end
+
+      it 'is expected to create associated note about when inquiry was set to started' do
+        done_inquiry.reload
+        expect(done_inquiry.notes.last.body).to eq "This is inquiry was not actually finished."
+      end
+    end
+
+
+    describe 'from started to pending' do
+      let(:started_inquiry) { create(:inquiry, inquiry_status: 'started', broker: broker_1) }
+
+      before do
+        put "/api/inquiries/#{started_inquiry.id}",
+            params: {
+              inquiry: { status_action: 'set_to_pending' }
+            },
+            headers: broker_headers
+      end
+
+      it 'is expected to return a 200 status' do
+        expect(response).to have_http_status 200
+      end
+
+      it 'is expected to respond with a message' do
+        expect(response_json['message']).to eq 'Inquiry has been updated'
+      end
+
+      it 'is expected to set inquiry status to pending' do
+        expect(response_json['inquiry']['inquiry_status']).to eq 'pending'
+      end
+
+      it 'is expected to create associated note about when inquiry was set tp pending' do
+        started_inquiry.reload
+        expect(started_inquiry.notes.last.body).to eq "This is inquiry was shelved."
+      end
+    end
+
   end
 
   describe 'unsuccessfull' do
@@ -65,27 +136,6 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
         put "/api/inquiries/#{done_inquiry.id}",
             params: {
               inquiry: { status_action: 'set_to_pending' }
-            },
-            headers: broker_headers
-      end
-
-      it 'is expected to return a 422 status' do
-        expect(response).to have_http_status 422
-      end
-
-      it 'is expected to return error message' do
-        expect(response_json['message'])
-          .to eq "You can't perform this on an inquiry that is 'done'"
-      end
-    end
-
-    describe 'from "done" to "started"' do
-      let(:done_inquiry) { create(:inquiry, inquiry_status: 'done', broker: broker_1) }
-
-      before do
-        put "/api/inquiries/#{done_inquiry.id}",
-            params: {
-              inquiry: { status_action: 'start' }
             },
             headers: broker_headers
       end

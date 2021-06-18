@@ -9,13 +9,12 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                size: 1,
                office_type: 'office',
                inquiry_status: 'pending',
-               company: 'Craft',
                peers: true,
                email: 'example@example.com',
-               flexible: true,
+               flexible: 'yes',
+               start_date: 'now',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
-               start_date: '2021-06-21'
              }
            }
     end
@@ -36,13 +35,17 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       expect(a_request(:post, Rails.application.credentials.dig(:slack, :webhook_url))).to have_been_made.times(1)
     end
 
-    describe 'outgoing email' do
+    it 'is expected to create note associated to inquiry about when it got submited' do
+      expect(Inquiry.last.notes.last.body).to eq "This is inquiry was submitted."
+    end
+
+    describe 'outgoing email to broker' do
       it 'is expected to send off email address of the sender' do
         expect(mail_delivery[0].from).to include('notification@flexcoast.com')
       end
 
-      it 'is expedted to return details of inquiry in subject' do
-        expect(mail_delivery[0].subject).to include('New inquiry, 2021-06-21')
+      it 'is expected to return details of inquiry in subject' do
+        expect(mail_delivery[0].subject).to include("New inquiry, #{Inquiry.last.created_at.strftime("%d %b %Y")}")
       end
 
       describe 'is expected to have inquiry detals in the body regarding' do
@@ -52,10 +55,6 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
         it 'office type' do
           expect(mail_delivery[0].body).to include('office')
-        end
-
-        it 'company' do
-          expect(mail_delivery[0].body).to include('Craft')
         end
 
         it 'peers' do
@@ -70,6 +69,10 @@ RSpec.describe 'POST /api/inquiries', type: :request do
           expect(mail_delivery[0].body).to include('true')
         end
 
+        it 'start date' do
+          expect(mail_delivery[0].body).to include('now')
+        end
+
         it 'phone' do
           expect(mail_delivery[0].body).to include('0707123456')
         end
@@ -77,10 +80,20 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         it 'location' do
           expect(mail_delivery[0].body).to include('Gothenburg City', 'Southside')
         end
+      end
+    end
 
-        it 'start date' do
-          expect(mail_delivery[0].body).to include('2021-06-21')
-        end
+    describe 'outgoing email to person that submitted inquiry' do
+      it 'is expected to send email to the inquiry submitter' do
+        expect(mail_delivery[1].to.first).to eq 'example@example.com'
+      end
+
+      it 'is expected to return details of inquiry in the subject' do
+        expect(mail_delivery[1].subject).to include("FlexCost is on top of things!")
+      end
+
+      it 'is expected to contain welcome message in body' do
+        expect(mail_delivery[1].body).to include("We received your inquiry and we have you covered! Our team will select the best offices for you, expect to hear from us withing a day or two. Meanwhile fell free to contact us, our phone is 031-123-4567")
       end
     end
   end
@@ -96,19 +109,20 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                company: 'Craft',
                peers: true,
                email: '',
-               flexible: true,
+               flexible: 'yes',
+               start_date: 'now',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
-               start_date: '2021-06-21'
              }
            }
     end
+    
 
     it 'is expected to return a 422 status' do
       expect(response).to have_http_status 422
     end
 
-    it 'is expected to respond with a success message' do
+    it 'is expected to return error message' do
       expect(response_json['error_message']).to eq 'Unfortunately, we had a small issue processing your request. Would you please try again?'
     end
   end

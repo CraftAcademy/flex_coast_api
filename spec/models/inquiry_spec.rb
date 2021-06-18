@@ -68,8 +68,8 @@ RSpec.describe Inquiry, type: :model do
         .of_type(:integer)
     }
     it {
-      is_expected.to have_db_column(:company)
-        .of_type(:string)
+      is_expected.to have_db_column(:flexible)
+        .of_type(:integer)
     }
     it {
       is_expected.to have_db_column(:peers)
@@ -80,24 +80,27 @@ RSpec.describe Inquiry, type: :model do
         .of_type(:string)
     }
     it {
-      is_expected.to have_db_column(:flexible)
-        .of_type(:boolean)
-    }
-    it {
       is_expected.to have_db_column(:phone)
-        .of_type(:string)
-    }
-    it {
-      is_expected.to have_db_column(:start_date)
         .of_type(:string)
     }
     it {
       is_expected.to have_db_column(:inquiry_status)
         .of_type(:integer)
     }
+    it {
+      is_expected.to have_db_column(:start_date)
+        .of_type(:integer)
+    }
     it 'is expected to have db column locations of type array' do
       expect(subject[:locations]).is_a?(Array)
     end
+  end
+
+  describe 'Flexible' do
+    it {
+      is_expected.to define_enum_for(:flexible)
+        .with_values({ yes: 1, no: 2, mixed: 3 })
+    }
   end
 
   describe 'Validations' do
@@ -107,7 +110,7 @@ RSpec.describe Inquiry, type: :model do
   describe 'Office type' do
     it {
       is_expected.to define_enum_for(:office_type)
-        .with_values({ office: 1, open_space: 2 })
+        .with_values({ office: 1, open_space: 2, combined: 3 })
     }
   end
 
@@ -118,10 +121,21 @@ RSpec.describe Inquiry, type: :model do
     }
   end
 
+  describe 'Start date' do
+    it {
+      is_expected.to define_enum_for(:start_date)
+        .with_values({ now: 1, quarter: 2, unsure: 3 })
+    }
+  end
+
+  describe 'Associations' do
+    it { is_expected.to have_many :notes }
+  end
+
   describe 'Hooks' do
-    it 'is expected to send notification email' do
+    it 'is expected to send notification email to broker & submitter' do
       expect { create(:inquiry) }
-        .to change { mail_delivery.count }.from(0).to(1)
+        .to change { mail_delivery.count }.from(0).to(2)
     end
   end
 
