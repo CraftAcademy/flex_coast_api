@@ -14,6 +14,8 @@ gem 'devise_token_auth'
 gem 'pundit'
 gem 'pundit_helpers'
 gem 'aasm'
+gem 'ahoy_matey'
+gem 'rest-client'
 
 group :development, :test do
   gem 'coveralls', require: false
