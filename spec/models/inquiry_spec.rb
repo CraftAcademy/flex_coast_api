@@ -88,9 +88,14 @@ RSpec.describe Inquiry, type: :model do
     it 'is expected to only send notification email of inquiry started once' do
       inquiry = create(:inquiry)
       inquiry.start
+      inquiry.save
+      binding.pry
       inquiry.set_to_pending
+      inquiry.save
+      binding.pry
       inquiry.start
       binding.pry
+      expect(mail_delivery.count).to eq 2
     end
   end
 

@@ -9,7 +9,11 @@ class Inquiry < ApplicationRecord
       transitions from: :pending, to: :started do
         guard do
           add_note("This is inquiry was started.")
-          InquiryMailer.started_email(self).deliver if Rails.env.test?
+          binding.pry
+          if !self.started_email_sent
+            InquiryMailer.started_email(self).deliver if Rails.env.test?
+            self.update(started_email_sent: true)
+          end
         end
       end
     end
@@ -41,6 +45,7 @@ class Inquiry < ApplicationRecord
   end
 
   def aasm_event_failed(event_name, old_state_name)
+    binding.pry
     raise StandardError, "You can't perform this on an inquiry that is '#{old_state_name}'"
   end
 
