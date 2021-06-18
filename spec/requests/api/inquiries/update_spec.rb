@@ -34,7 +34,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was started' do
         pending_inquiry.reload
-        expect(pending_inquiry.notes.last.body).to eq "This is inquiry was started."
+        expect(pending_inquiry.notes.last.body).to eq "This inquiry was started."
       end
 
       describe 'outgoing email to person that submitted inquiry' do
@@ -77,7 +77,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was finished' do
         started_inquiry.reload
-        expect(started_inquiry.notes.last.body).to eq "This is inquiry was finished."
+        expect(started_inquiry.notes.last.body).to eq "This inquiry was finished."
       end
     end
 
@@ -107,7 +107,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was set to started' do
         done_inquiry.reload
-        expect(done_inquiry.notes.last.body).to eq "This is inquiry was not actually finished."
+        expect(done_inquiry.notes.last.body).to eq "This inquiry was not actually finished."
       end
     end
 
@@ -137,7 +137,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was set tp pending' do
         started_inquiry.reload
-        expect(started_inquiry.notes.last.body).to eq "This is inquiry was shelved."
+        expect(started_inquiry.notes.last.body).to eq "This inquiry was shelved."
       end
     end
 
