@@ -9,5 +9,7 @@ FactoryBot.define do
     phone { '0707123456' }
     locations { %w[Nordstaden Avenyn] }
     start_date { 1 }
+    started_email_sent { false }
+    language { 'en' }
   end
 end
