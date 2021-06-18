@@ -47,7 +47,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
         end
   
         it 'is expected to contain message about broker started handling inquiry' do
-          expect(mail_delivery[2].body).to include("We are trying to find you an office right now...idk")
+          expect(mail_delivery[2].body).to include("If you have any questions before I comeback to you. Then you can reach me on broker@flexcoast.com or 031-123-4567")
         end
       end
     end

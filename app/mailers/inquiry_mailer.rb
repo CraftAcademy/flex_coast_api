@@ -13,7 +13,7 @@ class InquiryMailer < ApplicationMailer
   end
 
   def started_email(data)
-    inquiry = data
-    mail(to: inquiry.email, subject: "FlexCoast has started processing your inquiry")
+    @inquiry = data
+    mail(to: @inquiry.email, subject: "FlexCoast has started processing your inquiry")
   end
 end

@@ -84,19 +84,6 @@ RSpec.describe Inquiry, type: :model do
       expect { create(:inquiry) }
         .to change { mail_delivery.count }.from(0).to(2)
     end
-
-    it 'is expected to only send notification email of inquiry started once' do
-      inquiry = create(:inquiry)
-      inquiry.start
-      inquiry.save
-      binding.pry
-      inquiry.set_to_pending
-      inquiry.save
-      binding.pry
-      inquiry.start
-      binding.pry
-      expect(mail_delivery.count).to eq 2
-    end
   end
 
   describe 'Factory' do
@@ -106,7 +93,7 @@ RSpec.describe Inquiry, type: :model do
   end
 
   describe 'Inquiry status events' do
-    let(:pending_inquiry) { create(:inquiry, inquiry_status: 'pending') }
+    let(:pending_inquiry) { create(:inquiry, inquiry_status: 'pending', broker: create(:user)) }
     let(:started_inquiry) { create(:inquiry, inquiry_status: 'started') }
     let(:done_inquiry) { create(:inquiry, inquiry_status: 'done') }
 
