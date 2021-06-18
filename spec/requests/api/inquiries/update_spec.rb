@@ -2,7 +2,8 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
   let(:broker_1) { create(:user, email: 'broker@flexcoast.com') }
   let(:credentials) { broker_1.create_new_auth_token }
   let(:broker_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
-  let(:pending_inquiry) { create(:inquiry, inquiry_status: 'pending') }
+  let(:pending_inquiry) { create(:inquiry, inquiry_status: 'pending', email: 'submitter@givemeanoffice.com') }
+  let(:mail_delivery) { ActionMailer::Base.deliveries }
 
   describe 'successfully' do
     describe 'from pending to started' do
@@ -33,7 +34,21 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was started' do
         pending_inquiry.reload
-        expect(pending_inquiry.notes.last.body).to eq "This is inquiry was started."
+        expect(pending_inquiry.notes.last.body).to eq "This inquiry was started."
+      end
+
+      describe 'outgoing email to person that submitted inquiry' do
+        it 'is expected to send email to the inquiry submitter' do
+          expect(mail_delivery[2].to.first).to eq 'submitter@givemeanoffice.com'
+        end
+  
+        it 'is expected to return updated status of inquiry in the subject' do
+          expect(mail_delivery[2].subject).to include("Johanna at FlexCoast has started to look at offices for you")
+        end
+  
+        it 'is expected to contain message about broker started handling inquiry' do
+          expect(mail_delivery[2].body).to include("If you have any questions before I comeback to you. You can reach me on broker@flexcoast.com or text/call me at 031-123-4567")
+        end
       end
     end
 
@@ -62,7 +77,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was finished' do
         started_inquiry.reload
-        expect(started_inquiry.notes.last.body).to eq "This is inquiry was finished."
+        expect(started_inquiry.notes.last.body).to eq "This inquiry was finished."
       end
     end
 
@@ -92,7 +107,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was set to started' do
         done_inquiry.reload
-        expect(done_inquiry.notes.last.body).to eq "This is inquiry was not actually finished."
+        expect(done_inquiry.notes.last.body).to eq "This inquiry was not actually finished."
       end
     end
 
@@ -122,7 +137,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       it 'is expected to create associated note about when inquiry was set tp pending' do
         started_inquiry.reload
-        expect(started_inquiry.notes.last.body).to eq "This is inquiry was shelved."
+        expect(started_inquiry.notes.last.body).to eq "This inquiry was shelved."
       end
     end
 

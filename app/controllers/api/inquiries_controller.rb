@@ -44,7 +44,7 @@ class Api::InquiriesController < ApplicationController
 
   def inquiry_params
     params.require(:inquiry).permit(:size, :office_type, :inquiry_status, :peers, :email, :flexible,
-                                      :phone, :start_date, locations: [])
+                                      :phone, :start_date, :language, locations: [])
   end
 
   def rescue_from_standard_error(error)

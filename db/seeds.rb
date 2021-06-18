@@ -20,11 +20,10 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": [
       "Gothenburg City",
-      "Southside",
-      "Gothenburg City",
       "Southside"
     ],
-    "inquiry_status": "pending"
+    "inquiry_status": "pending",
+    "language": 'en'
   },
   {
     "id": 2,
@@ -36,7 +35,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City", "Southside"],
     "inquiry_status": "done",
-    "broker_id": broker.id 
+    "broker_id": broker.id,
+    "language": 'se'
   },
   {
     "id": 3,
@@ -48,7 +48,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City", "Southside"],
     "inquiry_status": "started",
-    "broker_id": broker.id 
+    "broker_id": broker.id,
+    "language": 'en' 
 
   },
   {
@@ -61,7 +62,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City", "Nordstan"],
     "inquiry_status": "started",
-    "broker_id": broker.id 
+    "broker_id": broker.id,
+    "language": 'se'
   },
   {
     "id": 5,
@@ -73,7 +75,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City"],
     "inquiry_status": "started",
-    "broker_id": broker.id 
+    "broker_id": broker.id,
+    "language": 'en' 
   },
   {
     "id": 6,
@@ -85,7 +88,8 @@ inquiries = Inquiry.create ([
     "phone": "0707123456",
     "locations": ["Gothenburg City"],
     "inquiry_status": "started",
-    "broker_id": broker.id 
+    "broker_id": broker.id,
+    "language": 'se' 
   }
 ])
 
