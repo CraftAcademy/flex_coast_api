@@ -36,7 +36,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     end
 
     it 'is expected to create note associated to inquiry about when it got submited' do
-      expect(Inquiry.last.notes.last.body).to eq "This is inquiry was submitted."
+      expect(Inquiry.last.notes.last.body).to eq "This inquiry was submitted."
     end
 
     describe 'outgoing email to broker' do
@@ -93,7 +93,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       end
 
       it 'is expected to contain welcome message in body' do
-        expect(mail_delivery[1].body).to include("We received your inquiry and we have you covered! Our team will select the best offices for you, expect to hear from us withing a day or two. Meanwhile fell free to contact us, our phone is 031-123-4567")
+        expect(mail_delivery[1].body).to include("We received your inquiry and we have you covered! Our team will select the best offices for you, expect to hear from us withing a day or two.")
       end
     end
   end
