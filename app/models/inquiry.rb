@@ -9,6 +9,7 @@ class Inquiry < ApplicationRecord
       transitions from: :pending, to: :started do
         guard do
           add_note("This is inquiry was started.")
+          InquiryMailer.started_email(self).deliver if Rails.env.test?
         end
       end
     end
