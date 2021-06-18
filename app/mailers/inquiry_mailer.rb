@@ -8,7 +8,7 @@ class InquiryMailer < ApplicationMailer
   end
 
   def submitter_email(data)
-    @inquiry = data
-    mail(to: @inquiry.email, subject: "FlexCost is on top of things!")
+    inquiry = data
+    mail(to: inquiry.email, subject: "FlexCost is on top of things!")
   end
 end
