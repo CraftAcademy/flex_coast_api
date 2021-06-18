@@ -1,5 +1,5 @@
 # Flex Coast API
-Welcome to the API repo of March 2021 cohort's newsroom challenge.  
+Welcome to the API repo of March 2021 cohort's final project.  
 
 [![Coverage Status](https://coveralls.io/repos/github/CraftAcademy/flex_coast_api/badge.svg?branch=production)](https://coveralls.io/github/CraftAcademy/flex_coast_api?branch=production) 
 
