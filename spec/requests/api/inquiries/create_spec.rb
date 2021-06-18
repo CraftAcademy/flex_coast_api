@@ -39,12 +39,12 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       expect(Inquiry.last.notes.last.body).to eq "This is inquiry was submitted."
     end
 
-    describe 'outgoing email' do
+    describe 'outgoing email to broker' do
       it 'is expected to send off email address of the sender' do
         expect(mail_delivery[0].from).to include('notification@flexcoast.com')
       end
 
-      it 'is expedted to return details of inquiry in subject' do
+      it 'is expected to return details of inquiry in subject' do
         expect(mail_delivery[0].subject).to include("New inquiry, #{Inquiry.last.created_at.strftime("%d %b %Y")}")
       end
 
@@ -80,6 +80,20 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         it 'location' do
           expect(mail_delivery[0].body).to include('Gothenburg City', 'Southside')
         end
+      end
+    end
+
+    describe 'outgoing email to person that submitted inquiry' do
+      it 'is expected to send email to the inquiry submitter' do
+        expect(mail_delivery[1].to.first).to eq 'example@example.com'
+      end
+
+      it 'is expected to return details of inquiry in the subject' do
+        expect(mail_delivery[1].subject).to include("FlexCost is on top of things!")
+      end
+
+      it 'is expected to contain welcome message in body' do
+        expect(mail_delivery[1].body).to include("We received your inquiry and we have you covered! Our team will select the best offices for you, expect to hear from us withing a day or two. Meanwhile fell free to contact us, our phone is 031-123-4567")
       end
     end
   end
