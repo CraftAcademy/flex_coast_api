@@ -43,7 +43,7 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
         end
   
         it 'is expected to return updated status of inquiry in the subject' do
-          expect(mail_delivery[2].subject).to include("FlexCoast has started processing your inquiry")
+          expect(mail_delivery[2].subject).to include("Johanna at FlexCoast has started to look at offices for you")
         end
   
         it 'is expected to contain message about broker started handling inquiry' do
