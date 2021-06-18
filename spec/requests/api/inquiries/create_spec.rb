@@ -15,6 +15,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                start_date: 'now',
                phone: '0707123456',
                locations: ['Gothenburg City', 'Southside'],
+               language: 'en'
              }
            }
     end
