@@ -7,13 +7,23 @@ class InquiryMailer < ApplicationMailer
     mail(to: @user, subject: "New inquiry, #{@inquiry.created_at.strftime("%d %b %Y")}")
   end
 
-  def submitter_email(data)
+  def en_submitter_email(data)
     inquiry = data
-    mail(to: inquiry.email, subject: "FlexCost is on top of things!")
+    mail(to: inquiry.email, subject: "Johanna at FlexCost is on top of things!")
   end
 
-  def started_email(data)
+  def en_started_email(data)
     @inquiry = data
-    mail(to: @inquiry.email, subject: "FlexCoast has started processing your inquiry")
+    mail(to: @inquiry.email, subject: "Johanna at FlexCoast has started to look at offices for you")
+  end
+
+  def se_submitter_email(data)
+    inquiry = data
+    mail(to: inquiry.email, subject: "Johanna på FlexCoast har koll på läget")
+  end
+
+  def se_started_email(data)
+    @inquiry = data
+    mail(to: @inquiry.email, subject: "Johanna på FlexCoast har nu börjat leta efter ett kontor till dig")
   end
 end

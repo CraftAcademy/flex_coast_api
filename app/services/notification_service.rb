@@ -4,7 +4,11 @@ module NotificationService
   def self.new_inquiry(inquiry)
     # TODO: Configure mailer on production server
     InquiryMailer.broker_email(inquiry).deliver if Rails.env.test?
-    InquiryMailer.submitter_email(inquiry).deliver if Rails.env.test?
+    if inquiry.language == 'se'
+      InquiryMailer.se_submitter_email(inquiry).deliver if Rails.env.test?
+    else
+      InquiryMailer.en_submitter_email(inquiry).deliver if Rails.env.test?
+    end
 
     if Rails.env.production? || Rails.env.test?
       client = SlackNotify::Client.new(

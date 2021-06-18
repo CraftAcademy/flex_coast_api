@@ -104,17 +104,17 @@ RSpec.describe Inquiry, type: :model do
       end
 
       it 'submit mail is in swedish' do
-        expect(mail_delivery[0].body).to include('')
+        expect(mail_delivery[1].body).to include('Vi fick din förfrågan! Vårt team kommer att välja de bästa kontoren för just dig, förvänta att höra från oss om en dag eller två.')
       end
 
       it 'started mail is in swedish' do
-        expect(mail_delivery[2].body).to include('')
+        expect(mail_delivery[2].body).to include('Om du har några frågor innan jag återkommer till dig, så kan du nå mig på random_guy@email.com eller ringa/smsa mig på 031-123-4567')
       end
     end
 
     describe 'English - en' do
       before do
-        inquiry = create(:inquiry, language: 'se', inquiry_status: 'pending', broker: create(:user))
+        inquiry = create(:inquiry, language: 'en', inquiry_status: 'pending', broker: create(:user))
         inquiry.start
       end
 
