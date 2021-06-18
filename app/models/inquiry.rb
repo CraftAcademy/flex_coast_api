@@ -8,7 +8,7 @@ class Inquiry < ApplicationRecord
     event :start do
       transitions from: :pending, to: :started do
         guard do
-          add_note("This is inquiry was started.")
+          add_note("This inquiry was started.")
           send_started_notification()
         end
       end
@@ -17,7 +17,7 @@ class Inquiry < ApplicationRecord
     event :finish do
       transitions from: :started, to: :done do
         guard do
-          add_note("This is inquiry was finished.")
+          add_note("This inquiry was finished.")
         end
       end
     end
@@ -25,7 +25,7 @@ class Inquiry < ApplicationRecord
     event :set_to_pending do
       transitions from: :started, to: :pending do
         guard do
-          add_note("This is inquiry was shelved.")
+          add_note("This inquiry was shelved.")
         end
       end
     end
@@ -33,7 +33,7 @@ class Inquiry < ApplicationRecord
     event :set_to_started do
       transitions from: :done, to: :started do
         guard do
-          add_note("This is inquiry was not actually finished.")
+          add_note("This inquiry was not actually finished.")
         end
       end
     end
@@ -79,7 +79,7 @@ class Inquiry < ApplicationRecord
   end
 
   def send_notifications
-    add_note("This is inquiry was submitted.")
+    add_note("This inquiry was submitted.")
     NotificationService.new_inquiry(self)
   end
 end
