@@ -7,6 +7,10 @@ RSpec.describe Inquiry, type: :model do
         .of_type(:integer)
     }
     it {
+      is_expected.to have_db_column(:language)
+        .of_type(:string)
+    }
+    it {
       is_expected.to have_db_column(:office_type)
         .of_type(:integer)
     }
@@ -89,6 +93,38 @@ RSpec.describe Inquiry, type: :model do
   describe 'Factory' do
     it 'is expected to have valid factory' do
       expect(create(:inquiry)).to be_valid
+    end
+  end
+
+  describe 'Email language is the same as :language on inquiry' do
+    describe 'Swedish - se' do
+      before do
+        inquiry = create(:inquiry, language: 'se', inquiry_status: 'pending', broker: create(:user))
+        inquiry.start
+      end
+
+      it 'submit mail is in swedish' do
+        expect(mail_delivery[1].body).to include('Vi fick din förfrågan! Vårt team kommer att välja de bästa kontoren för just dig, förvänta att höra från oss om en dag eller två.')
+      end
+
+      it 'started mail is in swedish' do
+        expect(mail_delivery[2].body).to include('Om du har några frågor innan jag återkommer till dig, så kan du nå mig på random_guy@email.com eller ringa/smsa mig på 031-123-4567')
+      end
+    end
+
+    describe 'English - en' do
+      before do
+        inquiry = create(:inquiry, language: 'en', inquiry_status: 'pending', broker: create(:user))
+        inquiry.start
+      end
+
+      it 'submit mail is in english' do
+        expect(mail_delivery[1].body).to include('We received your inquiry and we have you covered! Our team will select the best offices for you, expect to hear from us withing a day or two.')
+      end
+
+      it 'started mail is in english' do
+        expect(mail_delivery[2].body).to include('If you have any questions before I comeback to you. You can reach me on random_guy@email.com or text/call me at 031-123-4567')
+      end
     end
   end
 

@@ -10,5 +10,6 @@ FactoryBot.define do
     locations { %w[Nordstaden Avenyn] }
     start_date { 1 }
     started_email_sent { false }
+    language { 'en' }
   end
 end
