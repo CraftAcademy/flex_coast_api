@@ -9,6 +9,7 @@ class Inquiry < ApplicationRecord
       transitions from: :pending, to: :started do
         guard do
           add_note("This is inquiry was started.")
+          send_started_notification()
         end
       end
     end
@@ -67,6 +68,13 @@ class Inquiry < ApplicationRecord
       self.notes.create(
         body: body
       )
+    end
+  end
+
+  def send_started_notification
+    unless self.started_email_sent
+      InquiryMailer.started_email(self).deliver if Rails.env.test?
+      self.update(started_email_sent: true)
     end
   end
 
