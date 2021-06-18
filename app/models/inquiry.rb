@@ -73,7 +73,11 @@ class Inquiry < ApplicationRecord
 
   def send_started_notification
     unless self.started_email_sent
-      InquiryMailer.started_email(self).deliver if Rails.env.test?
+      if self.language == 'se'
+        InquiryMailer.se_started_email(self).deliver if Rails.env.test?
+      else
+        InquiryMailer.en_started_email(self).deliver if Rails.env.test?
+      end
       self.update(started_email_sent: true)
     end
   end
