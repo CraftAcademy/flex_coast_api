@@ -39,15 +39,15 @@ RSpec.describe 'PUT /api/inquiries/:id', type: :request do
 
       describe 'outgoing email to person that submitted inquiry' do
         it 'is expected to send email to the inquiry submitter' do
-          expect(mail_delivery[0].to.first).to eq 'submitter@givemeanoffice.com'
+          expect(mail_delivery[2].to.first).to eq 'submitter@givemeanoffice.com'
         end
   
         it 'is expected to return updated status of inquiry in the subject' do
-          expect(mail_delivery[0].subject).to include("FlexCoast has started processing your inquiry")
+          expect(mail_delivery[2].subject).to include("FlexCoast has started processing your inquiry")
         end
   
         it 'is expected to contain message about broker started handling inquiry' do
-          expect(mail_delivery[0].body).to include("We are trying to find you an office right now...idk")
+          expect(mail_delivery[2].body).to include("We are trying to find you an office right now...idk")
         end
       end
     end
