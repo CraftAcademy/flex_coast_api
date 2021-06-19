@@ -9,7 +9,7 @@
     "type": "NOTE",
     "timestamp": 1623846569000,
     "allAccessibleTeamIds": [],
-    "bodyPreview": "The following data was provided by the user: Size: 5 Office type: office Peers: true Email: steve@yahoo.se Flexible:",
+    "bodyPreview": "The following data was provided by the user: Size: 5 Office type: office Peers: 'Yes' Email: steve@yahoo.se Flexible:",
     "queueMembershipIds": [],
     "bodyPreviewIsTruncated": false,
     "bodyPreviewHtml": "<html>\n <head></head>\n <body>\n The following data was provided by the user: \n <br> \n <ul> \n <li>Size: 5</li> \n",
