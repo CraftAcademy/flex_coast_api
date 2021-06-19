@@ -29,7 +29,7 @@ RSpec.describe 'GET /api/inquiries', type: :request do
     end
 
     it 'is expected to include the inquiry\'s peer request' do
-      expect(response_json['inquiries'].first['peers']).to eq true
+      expect(response_json['inquiries'].first['peers']).to eq 'Yes'
     end
 
     it 'is expected to include the inquiry\'s email' do

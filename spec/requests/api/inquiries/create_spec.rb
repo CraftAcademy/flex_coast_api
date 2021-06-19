@@ -9,7 +9,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                size: 1,
                office_type: 'office',
                inquiry_status: 'pending',
-               peers: true,
+               peers: 'Yes',
                email: 'example@example.com',
                flexible: 'yes',
                start_date: 'now',
@@ -59,7 +59,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         end
 
         it 'peers' do
-          expect(mail_delivery[0].body).to include('true')
+          expect(mail_delivery[0].body).to include('Yes')
         end
 
         it 'email' do
@@ -67,7 +67,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         end
 
         it 'flexible' do
-          expect(mail_delivery[0].body).to include('true')
+          expect(mail_delivery[0].body).to include('yes')
         end
 
         it 'start date' do
@@ -108,7 +108,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
                office_type: 'office',
                inquiry_status: 'pending',
                company: 'Craft',
-               peers: true,
+               peers: 'Yes',
                email: '',
                flexible: 'yes',
                start_date: 'now',
