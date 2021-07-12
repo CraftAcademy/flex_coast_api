@@ -30,9 +30,20 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_request(:post, Rails.application.credentials.dig(:slack, :webhook_url))
       .to_return(status: 200, body: 'true', headers: {})
-    stub_request(:post, 'https://api.hubapi.com/contacts/v1/contact?hapikey=2c25e746-ebc4-4add-977b-427a5044cd3a')
-      .to_return(status: 200, body: '{ "vid": 1234 }', headers: {})
-    stub_request(:post, 'https://api.hubapi.com/engagements/v1/engagements?hapikey=2c25e746-ebc4-4add-977b-427a5044cd3a')
-      .to_return(status: 200, body: '', headers: {})
+    stub_request(
+      :post,
+      "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
+    ).to_return(
+      status: 200,
+      body: file_fixture('contact_hub_spot_response.json').read
+    )
+    stub_request(
+      :post,
+      "https://api.hubapi.com/engagements/v1/engagements?hapikey=#{Rails.application.credentials.dig(:hub_spot,
+                                                                                                     :api_key)}"
+    ).to_return(
+      status: 200,
+      body: file_fixture('note_hub_spot_response.json').read
+    )
   end
 end

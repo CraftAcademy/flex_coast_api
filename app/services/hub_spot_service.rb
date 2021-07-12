@@ -4,11 +4,10 @@ module HubSpotService
     inquiry = OpenStruct.new(inquiry) unless inquiry.is_a?(Inquiry)
     contact = create_contact(inquiry)
     id = JSON.parse(contact.body)['vid']
-
-    note = if inquiry.officeProvider == 'true'
+    note = if inquiry.try(:officeProvider) == 'true'
              format_rent_out_note(inquiry)
            else
-             format_note(inquiry)
+             format_note(inquiry)             
            end
     timestamp = DateTime.now.to_i * 1000
     create_note(note, id, timestamp)
