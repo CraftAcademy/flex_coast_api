@@ -153,12 +153,8 @@ RSpec.describe 'POST /api/inquiries', type: :request do
       expect(response_json['message']).to eq 'Thanks for your answers! We\'ll be in touch'
     end
 
-    it 'is expected to have created a new Inquiry' do
-      expect(Inquiry.all.count).to eq 1
-    end
-
-    it 'is expected to send off slack notification' do
-      expect(a_request(:post, Rails.application.credentials.dig(:slack, :webhook_url))).to have_been_made.times(1)
+    it 'is expected to NOT have created a new Inquiry' do
+      expect(Inquiry.all.count).to eq 0
     end
   end
 end

@@ -6,6 +6,7 @@ class Api::InquiriesController < ApplicationController
   def create
     if @office_provider_inquiry
       HubSpotService.move(params[:inquiry])
+      render json: { message: 'Thanks for your answers! We\'ll be in touch' } and return
     else
       inquiry = Inquiry.create(inquiry_params)
     end
