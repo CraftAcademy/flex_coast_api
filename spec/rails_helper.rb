@@ -28,7 +28,22 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include ResponseJSON
   config.before(:each) do
-    stub_request(:post, Rails.application.credentials.dig(:slack, :webhook_url)).
-    to_return(status: 200, body: 'true', headers: {})
+    stub_request(:post, Rails.application.credentials.dig(:slack, :webhook_url))
+      .to_return(status: 200, body: 'true', headers: {})
+    stub_request(
+      :post,
+      "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
+    ).to_return(
+      status: 200,
+      body: file_fixture('contact_hub_spot_response.json').read
+    )
+    stub_request(
+      :post,
+      "https://api.hubapi.com/engagements/v1/engagements?hapikey=#{Rails.application.credentials.dig(:hub_spot,
+                                                                                                     :api_key)}"
+    ).to_return(
+      status: 200,
+      body: file_fixture('note_hub_spot_response.json').read
+    )
   end
 end
