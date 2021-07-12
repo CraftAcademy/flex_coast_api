@@ -181,7 +181,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
         :get,
         %r{https://api.hubapi.com/contacts/v1/contact/email}
       ).to_return(
-        status: 200,
+        status: 404,
         body: file_fixture('contact_hub_spot_not_found.json').read
       )
       post '/api/inquiries',
