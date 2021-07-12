@@ -3,7 +3,6 @@ class Api::HubSpotController < ApplicationController
 
   def create
     inquiry = Inquiry.find(params[:inquiry_id])
-
     HubSpotService.move(inquiry)
     inquiry.notes.create(body: "This inquiry was exported to HubSpot", creator: current_user)
     render json: { message: 'Successfully added to HubSpot' }
