@@ -6,24 +6,8 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
 
   describe 'successfully' do
     before do
-      stub_request(
-        :post, 
-        "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
-      ).to_return(
-        status: 200, 
-        body: file_fixture("contact_hub_spot_response.json").read
-      )
-  
-      stub_request(
-        :post, 
-        "https://api.hubapi.com/engagements/v1/engagements?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
-      ).to_return(
-        status: 200, 
-        body: file_fixture("note_hub_spot_response.json").read
-      )
-  
       post "/api/inquiries/#{inquiry.id}/hub_spot",
-        headers: broker_headers
+           headers: broker_headers
     end
 
     it 'is expected to return a 200 status' do
@@ -41,16 +25,18 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
 
     it 'is expected to send off HubSpot request for contact' do
       expect(a_request(
-        :post, 
-        "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
-      )).to have_been_made.times(1)
+               :post,
+               "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot,
+                                                                                                       :api_key)}"
+             )).to have_been_made.times(1)
     end
 
     it 'is expected to send off HubSpot request for note' do
       expect(a_request(
-        :post, 
-        "https://api.hubapi.com/engagements/v1/engagements?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
-      )).to have_been_made.times(1)
+               :post,
+               "https://api.hubapi.com/engagements/v1/engagements?hapikey=#{Rails.application.credentials.dig(:hub_spot,
+                                                                                                              :api_key)}"
+             )).to have_been_made.times(1)
     end
   end
 
@@ -58,15 +44,15 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
     describe 'when contact for email has already been made' do
       before do
         stub_request(
-          :post, 
+          :post,
           "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot, :api_key)}"
         ).to_return(
-          status: 409, 
-          body: file_fixture("error_hub_spot_response.json").read
+          status: 409,
+          body: file_fixture('error_hub_spot_response.json').read
         )
 
         post "/api/inquiries/#{inquiry.id}/hub_spot",
-          headers: broker_headers
+             headers: broker_headers
       end
 
       it 'is expected to return a 409 status' do
@@ -81,17 +67,17 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
 
     describe 'with invalid param' do
       before do
-        post "/api/inquiries/420/hub_spot",
-        headers: broker_headers
+        post '/api/inquiries/420/hub_spot',
+             headers: broker_headers
       end
 
       it 'is expected to return a 422 status' do
         expect(response).to have_http_status 422
       end
-  
+
       it 'is expected to return error message' do
         expect(response_json['error_message']).to eq "Couldn't find Inquiry with 'id'=420"
-      end  
+      end
     end
   end
 end
