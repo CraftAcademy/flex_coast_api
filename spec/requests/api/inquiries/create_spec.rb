@@ -132,6 +132,58 @@ RSpec.describe 'POST /api/inquiries', type: :request do
   describe 'rent out office inquiry' do
     let(:mail_delivery) { ActionMailer::Base.deliveries }
     before do
+      stub_request(
+        :get,
+        %r{https://api.hubapi.com/contacts/v1/contact/email}
+      ).to_return(
+        status: 200,
+        body: file_fixture('contact_hub_spot_found.json').read
+      )
+
+      stub_request(
+        :post,
+        %r{https://api.hubapi.com/contacts/v1/contact/vid}
+      ).to_return(
+        status: 204,
+        body: nil
+      )
+      post '/api/inquiries',
+           params: {
+             inquiry: {
+               officeProvider: true,
+               name: 'Thomas',
+               phone: '031111111',
+               email: 'thomas@mail.com',
+               notes: 'I really need to get someone to share my office with',
+               language: 'en'
+             }
+           }
+    end
+
+    it 'is expected to return a 200 status' do
+      expect(response).to have_http_status 200
+    end
+
+    it 'is expected to respond with a success message' do
+      expect(response_json['message']).to eq 'Thanks for your answers! We\'ll be in touch'
+    end
+
+    it 'is expected to NOT have created a new Inquiry' do
+      expect(Inquiry.all.count).to eq 0
+    end
+  end
+
+  describe 'rent out office inquiry with email for existing user' do
+    # test case for updating a record if the user already exists on HubSpot
+    let(:mail_delivery) { ActionMailer::Base.deliveries }
+    before do
+      stub_request(
+        :get,
+        %r{https://api.hubapi.com/contacts/v1/contact/email}
+      ).to_return(
+        status: 404,
+        body: file_fixture('contact_hub_spot_not_found.json').read
+      )
       post '/api/inquiries',
            params: {
              inquiry: {
