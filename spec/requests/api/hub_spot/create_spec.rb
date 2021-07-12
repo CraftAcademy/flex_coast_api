@@ -4,8 +4,18 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
   let(:broker_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
   let(:inquiry) { create(:inquiry, inquiry_status: 'started', email: 'steve@yahoo.se') }
 
+  before do
+    stub_request(
+      :get,
+      %r{https://api.hubapi.com/contacts/v1/contact/email}
+    ).to_return(
+      status: 200,
+      body: file_fixture('contact_hub_spot_not_found.json').read
+    )
+  end
   describe 'successfully' do
     before do
+    
       post "/api/inquiries/#{inquiry.id}/hub_spot",
            headers: broker_headers
     end
@@ -23,7 +33,15 @@ RSpec.describe 'POST /api/inquiries/:id/hub_spot', type: :request do
       expect(inquiry.notes.last.body).to eq 'This inquiry was exported to HubSpot'
     end
 
-    it 'is expected to send off HubSpot request for contact' do
+    it 'is expected to send off HubSpot request for finding contact' do
+      expect(a_request(
+               :get,
+               "https://api.hubapi.com/contacts/v1/contact/email/steve@yahoo.se/profile?hapikey=#{Rails.application.credentials.dig(:hub_spot,
+                                                                                                                                    :api_key)}"
+             )).to have_been_made.times(1)
+    end
+
+    it 'is expected to send off HubSpot request for creating contact' do
       expect(a_request(
                :post,
                "https://api.hubapi.com/contacts/v1/contact?hapikey=#{Rails.application.credentials.dig(:hub_spot,

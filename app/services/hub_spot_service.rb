@@ -2,8 +2,8 @@ module HubSpotService
   @api_key = Rails.application.credentials.dig(:hub_spot, :api_key)
   def self.move(inquiry)
     inquiry = OpenStruct.new(inquiry) unless inquiry.is_a?(Inquiry)
-    contact = create_contact(inquiry)
-    id = JSON.parse(contact.body)['vid']
+    contact = find_or_create_contact(inquiry)
+    id = contact[:vid]
     note = if inquiry.try(:officeProvider).nil?
              format_note(inquiry)
            else
@@ -14,16 +14,28 @@ module HubSpotService
     true
   end
 
-  def self.create_contact(inquiry)
-    RestClient.post(
-      "https://api.hubapi.com/contacts/v1/contact?hapikey=#{@api_key}",
-      {
-        properties: [
-          { property: 'email', value: inquiry.email },
-          { property: 'phone', value: inquiry.phone }
-        ]
-      }.to_json, { content_type: :json, accept: :json }
-    )
+  def self.find_or_create_contact(inquiry)
+    properties = {
+      properties: [
+        { property: 'email', value: inquiry.email },
+        { property: 'phone', value: inquiry.phone }
+      ]
+    }.to_json
+    contact = JSON.parse(
+      RestClient.get("https://api.hubapi.com/contacts/v1/contact/email/#{inquiry.email}/profile?hapikey=#{@api_key}")
+    ).symbolize_keys
+    if contact[:status] != 'error'
+      RestClient.post(
+        "https://api.hubapi.com/contacts/v1/contact/vid/#{contact[:vid]}/profile?hapikey=#{@api_key}",
+        properties, { content_type: :json, accept: :json }
+      )
+    else
+      RestClient.post(
+        "https://api.hubapi.com/contacts/v1/contact?hapikey=#{@api_key}",
+        properties, { content_type: :json, accept: :json }
+      )
+    end
+    contact
   end
 
   def self.create_note(note, id, timestamp)
