@@ -1,9 +1,15 @@
 module HubSpotService
   @api_key = Rails.application.credentials.dig(:hub_spot, :api_key)
   def self.move(inquiry)
+    inquiry = OpenStruct.new(inquiry) unless inquiry.is_a?(Inquiry)
     contact = create_contact(inquiry)
     id = JSON.parse(contact.body)['vid']
-    note = format_note(inquiry)
+
+    note = if inquiry.officeProvider == 'true'
+             format_rent_out_note(inquiry)
+           else
+             format_note(inquiry)
+           end
     timestamp = DateTime.now.to_i * 1000
     create_note(note, id, timestamp)
     true
@@ -46,8 +52,7 @@ module HubSpotService
     locations = inquiry.locations.map do |location|
       location
     end
-    note = "
-    The following data was provided by the user:</br>
+    "The following data was provided by the user:</br>
     <ul>
     <li>Size: #{inquiry.size}</li>
     <li>Office type: #{inquiry.office_type}</li>
@@ -57,7 +62,15 @@ module HubSpotService
     <li>Phone: #{inquiry.phone}</li>
     </ul>
     Locations: #{locations}"
+  end
 
-    note
+  def self.format_rent_out_note(inquiry)
+    "The following information was provided by the user:</br>
+    <ul>
+    <li>Name: #{inquiry.name}</li>
+    <li>Email: #{inquiry.email}</li>
+    <li>Phone: #{inquiry.phone}</li>
+    <li>Notes: #{inquiry.notes}</li>
+    </ul>"
   end
 end

@@ -28,7 +28,11 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include ResponseJSON
   config.before(:each) do
-    stub_request(:post, Rails.application.credentials.dig(:slack, :webhook_url)).
-    to_return(status: 200, body: 'true', headers: {})
+    stub_request(:post, Rails.application.credentials.dig(:slack, :webhook_url))
+      .to_return(status: 200, body: 'true', headers: {})
+    stub_request(:post, 'https://api.hubapi.com/contacts/v1/contact?hapikey=2c25e746-ebc4-4add-977b-427a5044cd3a')
+      .to_return(status: 200, body: '{ "vid": 1234 }', headers: {})
+    stub_request(:post, 'https://api.hubapi.com/engagements/v1/engagements?hapikey=2c25e746-ebc4-4add-977b-427a5044cd3a')
+      .to_return(status: 200, body: '', headers: {})
   end
 end
