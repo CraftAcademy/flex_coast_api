@@ -1,10 +1,14 @@
 class Api::InquiriesController < ApplicationController
   before_action :authenticate_user!, only: :update
+  before_action :cast_boolean, only: [:create]
   rescue_from StandardError, with: :rescue_from_standard_error
 
   def create
-    binding.pry
-    inquiry = Inquiry.create(inquiry_params)
+    if @office_provider_inquiry
+      HubSpotService.move(params[:inquiry])
+    else
+      inquiry = Inquiry.create(inquiry_params)
+    end
     if inquiry.persisted?
       render json: { message: 'Thanks for your answers! We\'ll be in touch' }
     else
@@ -38,6 +42,12 @@ class Api::InquiriesController < ApplicationController
   end
 
   private
+
+  def cast_boolean
+    if params[:inquiry][:officeProvider] 
+      @office_provider_inquiry = ActiveModel::Type::Boolean.new.cast(params[:inquiry][:officeProvider])
+    end
+  end
 
   def authorize_resource(inquiry)
     render json: { message: 'You are not authorized to do this' }, status: 422 unless authorized?(inquiry, :update?)
