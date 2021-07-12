@@ -15,24 +15,29 @@ module HubSpotService
   end
 
   def self.find_or_create_contact(inquiry)
-    properties = {
+    data = {
       properties: [
         { property: 'email', value: inquiry.email },
         { property: 'phone', value: inquiry.phone }
       ]
-    }.to_json
-    contact = JSON.parse(
-      RestClient.get("https://api.hubapi.com/contacts/v1/contact/email/#{inquiry.email}/profile?hapikey=#{@api_key}")
-    ).symbolize_keys
+    }
+    inquiry.try(:name).try(:present?) && data[:properties].push({ property: 'firstname', value: inquiry.name })
+    begin
+      contact = JSON.parse(
+        RestClient.get("https://api.hubapi.com/contacts/v1/contact/email/#{inquiry.email}/profile?hapikey=#{@api_key}")
+      ).symbolize_keys
+    rescue StandardError => e
+      contact = JSON.parse(e.response.body).symbolize_keys
+    end
     if contact[:status] != 'error'
       RestClient.post(
         "https://api.hubapi.com/contacts/v1/contact/vid/#{contact[:vid]}/profile?hapikey=#{@api_key}",
-        properties, { content_type: :json, accept: :json }
+        data.to_json, { content_type: :json, accept: :json }
       )
     else
       RestClient.post(
         "https://api.hubapi.com/contacts/v1/contact?hapikey=#{@api_key}",
-        properties, { content_type: :json, accept: :json }
+        data.to_json, { content_type: :json, accept: :json }
       )
     end
     contact
