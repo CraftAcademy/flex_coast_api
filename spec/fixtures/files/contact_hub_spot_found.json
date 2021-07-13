@@ -1,0 +1,713 @@
+{
+  "vid": 1251,
+  "canonical-vid": 1251,
+  "merged-vids": [],
+  "portal-id": 20246979,
+  "is-contact": true,
+  "properties": {
+    "hs_is_unworked": {
+      "value": "false",
+      "versions": [
+        {
+          "value": "false",
+          "source-type": "CALCULATED",
+          "source-id": "CalculatedPropertyComputer",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625822583806,
+          "selected": false
+        },
+        {
+          "value": "true",
+          "source-type": "CALCULATED",
+          "source-id": "CalculatedPropertyComputer",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331142,
+          "selected": false
+        }
+      ]
+    },
+    "firstname": {
+      "value": "Thomas",
+      "versions": [
+        {
+          "value": "Thomas",
+          "source-type": "CRM_UI",
+          "source-id": "userId:25179223",
+          "source-label": null,
+          "updated-by-user-id": 25179223,
+          "timestamp": 1625820331070,
+          "selected": false
+        }
+      ]
+    },
+    "associatedcompanyid": {
+      "value": "6247765371",
+      "versions": [
+        {
+          "value": "6247765371",
+          "source-type": "CALCULATED",
+          "source-id": "RollupProperties",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331610,
+          "selected": false
+        }
+      ]
+    },
+    "num_unique_conversion_events": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "CALCULATED",
+          "source-id": null,
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 0,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_revenue": {
+      "value": "0.0",
+      "versions": [
+        {
+          "value": "0.0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_social_num_broadcast_clicks": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "createdate": {
+      "value": "1625820331142",
+      "versions": [
+        {
+          "value": "1625820331142",
+          "source-type": "CONTACTS",
+          "source-id": "userId:25179223",
+          "source-label": null,
+          "updated-by-user-id": 25179223,
+          "timestamp": 1625820331142,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_num_visits": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_social_linkedin_clicks": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hubspot_owner_id": {
+      "value": "84375625",
+      "versions": [
+        {
+          "value": "84375625",
+          "source-type": "CRM_UI",
+          "source-id": "userId:25179223",
+          "source-label": null,
+          "updated-by-user-id": 25179223,
+          "timestamp": 1625820331070,
+          "selected": false
+        }
+      ]
+    },
+    "num_contacted_notes": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ENGAGEMENTS",
+          "source-id": "ObjectPropertyUpdater",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625822583792,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_source": {
+      "value": "OFFLINE",
+      "versions": [
+        {
+          "value": "OFFLINE",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_email_domain": {
+      "value": "craftacademy.se",
+      "versions": [
+        {
+          "value": "craftacademy.se",
+          "source-type": "CALCULATED",
+          "source-id": null,
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331142,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_num_page_views": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_all_owner_ids": {
+      "value": "84375625",
+      "versions": [
+        {
+          "value": "84375625",
+          "source-type": "CALCULATED",
+          "source-id": "PermissionsUpdater",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332102,
+          "selected": false
+        }
+      ]
+    },
+    "hs_count_is_worked": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "CALCULATED",
+          "source-id": "CalculatedPropertyComputer",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331142,
+          "selected": false
+        }
+      ]
+    },
+    "email": {
+      "value": "thomas@craftacademy.se",
+      "versions": [
+        {
+          "value": "thomas@craftacademy.se",
+          "source-type": "CONTACTS",
+          "source-id": "userId:25179223",
+          "source-label": null,
+          "updated-by-user-id": 25179223,
+          "timestamp": 1625820331142,
+          "selected": false
+        }
+      ]
+    },
+    "notes_last_updated": {
+      "value": "1625822580238",
+      "versions": [
+        {
+          "value": "1625822580238",
+          "source-type": "ENGAGEMENTS",
+          "source-id": "ObjectPropertyUpdater",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625822583792,
+          "selected": false
+        }
+      ]
+    },
+    "lastmodifieddate": {
+      "value": "1625822583806",
+      "versions": [
+        {
+          "value": "1625822583806",
+          "source-type": "CALCULATED",
+          "source-id": null,
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625822583806,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_first_timestamp": {
+      "value": "1625820331070",
+      "versions": [
+        {
+          "value": "1625820331070",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_social_google_plus_clicks": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_lifecyclestage_subscriber_date": {
+      "value": "1625820331070",
+      "versions": [
+        {
+          "value": "1625820331070",
+          "source-type": "CRM_UI",
+          "source-id": "userId:25179223",
+          "source-label": null,
+          "updated-by-user-id": 25179223,
+          "timestamp": 1625820331070,
+          "selected": false
+        }
+      ]
+    },
+    "hs_user_ids_of_all_owners": {
+      "value": "25179223",
+      "versions": [
+        {
+          "value": "25179223",
+          "source-type": "CALCULATED",
+          "source-id": "PermissionsUpdater",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332102,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_average_page_views": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_all_contact_vids": {
+      "value": "1251",
+      "versions": [
+        {
+          "value": "1251",
+          "source-type": "CALCULATED",
+          "source-id": null,
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331189,
+          "selected": false
+        }
+      ]
+    },
+    "lastname": {
+      "value": "Ochman",
+      "versions": [
+        {
+          "value": "Ochman",
+          "source-type": "CRM_UI",
+          "source-id": "userId:25179223",
+          "source-label": null,
+          "updated-by-user-id": 25179223,
+          "timestamp": 1625820331070,
+          "selected": false
+        }
+      ]
+    },
+    "hs_social_facebook_clicks": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_is_contact": {
+      "value": "true",
+      "versions": [
+        {
+          "value": "true",
+          "source-type": "CALCULATED",
+          "source-id": null,
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331194,
+          "selected": false
+        }
+      ]
+    },
+    "hubspot_owner_assigneddate": {
+      "value": "1625820331070",
+      "versions": [
+        {
+          "value": "1625820331070",
+          "source-type": "CRM_UI",
+          "source-id": "userId:25179223",
+          "source-label": null,
+          "updated-by-user-id": 25179223,
+          "timestamp": 1625820331070,
+          "selected": false
+        }
+      ]
+    },
+    "num_conversion_events": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "CALCULATED",
+          "source-id": null,
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331142,
+          "selected": false
+        }
+      ]
+    },
+    "hs_object_id": {
+      "value": "1251",
+      "versions": [
+        {
+          "value": "1251",
+          "source-type": "CALCULATED",
+          "source-id": null,
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331142,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_num_event_completions": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_social_twitter_clicks": {
+      "value": "0",
+      "versions": [
+        {
+          "value": "0",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_source_data_2": {
+      "value": "userId:25179223",
+      "versions": [
+        {
+          "value": "userId:25179223",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "hs_analytics_source_data_1": {
+      "value": "CONTACTS",
+      "versions": [
+        {
+          "value": "CONTACTS",
+          "source-type": "ANALYTICS",
+          "source-id": "ContactAnalyticsDetailsUpdateWorker",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820332117,
+          "selected": false
+        }
+      ]
+    },
+    "lifecyclestage": {
+      "value": "subscriber",
+      "versions": [
+        {
+          "value": "subscriber",
+          "source-type": "CRM_UI",
+          "source-id": "userId:25179223",
+          "source-label": null,
+          "updated-by-user-id": 25179223,
+          "timestamp": 1625820331070,
+          "selected": false
+        }
+      ]
+    },
+    "hs_sales_email_last_replied": {
+      "value": "1625822580238",
+      "versions": [
+        {
+          "value": "1625822580238",
+          "source-type": "ENGAGEMENTS",
+          "source-id": "ObjectPropertyUpdater",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625822583792,
+          "selected": false
+        }
+      ]
+    },
+    "num_notes": {
+      "value": "1",
+      "versions": [
+        {
+          "value": "1",
+          "source-type": "ENGAGEMENTS",
+          "source-id": "ObjectPropertyUpdater",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625822583792,
+          "selected": false
+        }
+      ]
+    },
+    "hs_count_is_unworked": {
+      "value": "1",
+      "versions": [
+        {
+          "value": "1",
+          "source-type": "CALCULATED",
+          "source-id": "CalculatedPropertyComputer",
+          "source-label": null,
+          "updated-by-user-id": null,
+          "timestamp": 1625820331142,
+          "selected": false
+        }
+      ]
+    }
+  },
+  "form-submissions": [],
+  "list-memberships": [],
+  "identity-profiles": [
+    {
+      "vid": 1251,
+      "saved-at-timestamp": 1625820331194,
+      "deleted-changed-timestamp": 0,
+      "identities": [
+        {
+          "type": "EMAIL",
+          "value": "thomas@craftacademy.se",
+          "timestamp": 1625820331142,
+          "is-primary": true
+        },
+        {
+          "type": "LEAD_GUID",
+          "value": "97e59193-4eb8-408b-9daa-91307c6d623a",
+          "timestamp": 1625820331189
+        }
+      ]
+    }
+  ],
+  "merge-audits": [],
+  "associated-company": {
+    "company-id": 6247765371,
+    "portal-id": 20246979,
+    "properties": {
+      "country": {
+        "value": "Sweden"
+      },
+      "city": {
+        "value": "Göteborg"
+      },
+      "num_associated_contacts": {
+        "value": "1"
+      },
+      "timezone": {
+        "value": "Europe/Stockholm"
+      },
+      "facebook_company_page": {
+        "value": "https://facebook.com/craftacademysweden"
+      },
+      "createdate": {
+        "value": "1623832057959"
+      },
+      "description": {
+        "value": "Vill du kunna bygga nästa Uber eller Airbnb? Det handlar inte bara om att ha en bra idé - det handlar även om att KUNNA förverkliga den. Makers Academys unika utbildning ger dig det du behöver för att kunna skapa, utveckla och sjösätta webbaserade tjän..."
+      },
+      "hs_num_blockers": {
+        "value": "0"
+      },
+      "web_technologies": {
+        "value": "apache;ubuntu;typeform;facebook_connect;google_analytics;google_apps;facebook_advertiser"
+      },
+      "numberofemployees": {
+        "value": "10"
+      },
+      "hs_analytics_num_visits": {
+        "value": "0"
+      },
+      "linkedin_company_page": {
+        "value": "https://www.linkedin.com/company/craftacademy"
+      },
+      "hs_analytics_source": {
+        "value": "OFFLINE"
+      },
+      "num_contacted_notes": {
+        "value": "0"
+      },
+      "founded_year": {
+        "value": "2015"
+      },
+      "hs_analytics_num_page_views": {
+        "value": "0"
+      },
+      "state": {
+        "value": "Västra Götalands län"
+      },
+      "linkedinbio": {
+        "value": "Vill du kunna bygga nästa Uber eller Airbnb? Det handlar inte bara om att ha en bra idé - det handlar även om att KUNNA förverkliga den. Makers Academys unika utbildning ger dig det du behöver för att kunna skapa, utveckla och sjösätta webbaserade tjän..."
+      },
+      "hs_num_open_deals": {
+        "value": "0"
+      },
+      "zip": {
+        "value": "41129"
+      },
+      "notes_last_updated": {
+        "value": "1625822580238"
+      },
+      "website": {
+        "value": "craftacademy.se"
+      },
+      "address": {
+        "value": "1 Holtermansgatan"
+      },
+      "hs_analytics_first_timestamp": {
+        "value": "1625820331070"
+      },
+      "first_contact_createdate": {
+        "value": "1625820331142"
+      },
+      "twitterhandle": {
+        "value": "CraftAcademySE"
+      },
+      "hs_target_account_probability": {
+        "value": "0.38625118136405945"
+      },
+      "hs_lastmodifieddate": {
+        "value": "1626091204873"
+      },
+      "hs_num_decision_makers": {
+        "value": "0"
+      },
+      "phone": {
+        "value": "+46 73 261 25 27"
+      },
+      "domain": {
+        "value": "craftacademy.se"
+      },
+      "hs_num_child_companies": {
+        "value": "0"
+      },
+      "hs_num_contacts_with_buying_roles": {
+        "value": "0"
+      },
+      "hs_object_id": {
+        "value": "6247765371"
+      },
+      "is_public": {
+        "value": "false"
+      },
+      "name": {
+        "value": "Craft Academy"
+      },
+      "hs_analytics_source_data_2": {
+        "value": "userId:25179223"
+      },
+      "hs_analytics_source_data_1": {
+        "value": "CONTACTS"
+      },
+      "hs_sales_email_last_replied": {
+        "value": "1625822580238"
+      },
+      "num_notes": {
+        "value": "1"
+      }
+    }
+  }
+}
