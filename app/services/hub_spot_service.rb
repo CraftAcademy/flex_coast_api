@@ -1,6 +1,6 @@
 module HubSpotService
   @api_key = Rails.application.credentials.dig(:hub_spot, :api_key)
-  def self.move(inquiry)
+  def self.send(inquiry)
     inquiry = OpenStruct.new(inquiry) unless inquiry.is_a?(Inquiry)
     contact = find_or_create_contact(inquiry)
     id = contact[:vid]
