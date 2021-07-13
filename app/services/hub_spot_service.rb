@@ -15,13 +15,7 @@ module HubSpotService
   end
 
   def self.find_or_create_contact(inquiry)
-    data = {
-      properties: [
-        { property: 'email', value: inquiry.email },
-        { property: 'phone', value: inquiry.phone }
-      ]
-    }
-    inquiry.try(:name).try(:present?) && data[:properties].push({ property: 'firstname', value: inquiry.name })
+    data = format_data(inquiry)
     begin
       contact = JSON.parse(
         RestClient.get("https://api.hubapi.com/contacts/v1/contact/email/#{inquiry.email}/profile?hapikey=#{@api_key}")
@@ -86,5 +80,16 @@ module HubSpotService
     <li>Phone: #{inquiry.phone}</li>
     <li>Notes: #{inquiry.notes}</li>
     </ul>"
+  end
+
+  def self.format_data(inquiry)
+    data = {
+      properties: [
+        { property: 'email', value: inquiry.email },
+        { property: 'phone', value: inquiry.phone }
+      ]
+    }
+    inquiry.try(:name).try(:present?) && data[:properties].push({ property: 'firstname', value: inquiry.name })
+    data
   end
 end

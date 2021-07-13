@@ -1,8 +1,7 @@
 RSpec.describe 'POST /api/inquiries', type: :request do
+  let(:mail_delivery) { ActionMailer::Base.deliveries }
   describe 'regular inquiry' do
     describe 'successfully' do
-      let(:mail_delivery) { ActionMailer::Base.deliveries }
-
       before do
         post '/api/inquiries',
              params: {
@@ -129,23 +128,14 @@ RSpec.describe 'POST /api/inquiries', type: :request do
     end
   end
 
-  describe 'rent out office inquiry' do
-    let(:mail_delivery) { ActionMailer::Base.deliveries }
+  describe 'rent out office inquiry for new contact' do
     before do
       stub_request(
         :get,
         %r{https://api.hubapi.com/contacts/v1/contact/email}
       ).to_return(
         status: 200,
-        body: file_fixture('contact_hub_spot_found.json').read
-      )
-
-      stub_request(
-        :post,
-        %r{https://api.hubapi.com/contacts/v1/contact/vid}
-      ).to_return(
-        status: 204,
-        body: nil
+        body: file_fixture('contact_hub_spot_not_found.json').read
       )
       post '/api/inquiries',
            params: {
@@ -174,15 +164,21 @@ RSpec.describe 'POST /api/inquiries', type: :request do
   end
 
   describe 'rent out office inquiry with email for existing user' do
-    # test case for updating a record if the user already exists on HubSpot
-    let(:mail_delivery) { ActionMailer::Base.deliveries }
     before do
       stub_request(
         :get,
         %r{https://api.hubapi.com/contacts/v1/contact/email}
       ).to_return(
         status: 404,
-        body: file_fixture('contact_hub_spot_not_found.json').read
+        body: file_fixture('contact_hub_spot_found.json').read
+      )
+
+      stub_request(
+        :post,
+        %r{https://api.hubapi.com/contacts/v1/contact/vid}
+      ).to_return(
+        status: 204,
+        body: nil
       )
       post '/api/inquiries',
            params: {
