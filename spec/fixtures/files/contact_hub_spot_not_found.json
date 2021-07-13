@@ -1,0 +1,11 @@
+{
+  "status": "error",
+  "message": "contact does not exist",
+  "correlationId": "87cd9842-60b3-4999-b56b-e01cef171853",
+  "errors": [
+    {
+      "message": "The contact testingapis@hubspot.com does not exist."
+    }
+  ],
+  "category": "OBJECT_NOT_FOUND"
+}
