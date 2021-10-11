@@ -61,7 +61,7 @@ RSpec.describe Inquiry, type: :model do
   describe 'Office type' do
     it {
       is_expected.to define_enum_for(:office_type)
-        .with_values({ office: 1, open_space: 2, combined: 3 })
+        .with_values({ office_space: 1, office_room: 2, fixed_space: 3, flexible_space: 4 })
     }
   end
 
@@ -135,54 +135,53 @@ RSpec.describe Inquiry, type: :model do
 
     describe 'Pending inquiry' do
       it 'is expected to be able to ":start' do
-        expect{
+        expect do
           pending_inquiry.start
-        }
-        .not_to raise_error
+        end
+          .not_to raise_error
       end
 
       it 'is expected to not be able to ":finish"' do
-        expect{
+        expect do
           pending_inquiry.finish
-        }
-        .to raise_error(StandardError)
-        .with_message("You can't perform this on an inquiry that is 'pending'")
+        end
+          .to raise_error(StandardError)
+          .with_message("You can't perform this on an inquiry that is 'pending'")
       end
     end
 
     describe 'Started inquiry' do
       it 'is expected to be able to ":set_to_pending"' do
-        expect{
+        expect  do
           started_inquiry.set_to_pending
-        }
-        .not_to raise_error
+        end
+          .not_to raise_error
       end
 
       it 'is expected to be able to "finish"' do
-        expect{
+        expect  do
           started_inquiry.finish
-        }
-        .not_to raise_error
+        end
+          .not_to raise_error
       end
     end
 
     describe 'Done inquiry' do
       it 'is expected to not be able to ":set_to_pending"' do
-        expect{
+        expect do
           done_inquiry.set_to_pending
-        }
-        .to raise_error(StandardError)
-        .with_message("You can't perform this on an inquiry that is 'done'")
+        end
+          .to raise_error(StandardError)
+          .with_message("You can't perform this on an inquiry that is 'done'")
       end
 
       it 'is expected to not be able to ":start"' do
-        expect{
+        expect do
           done_inquiry.start
-        }
-        .to raise_error(StandardError)
-        .with_message("You can't perform this on an inquiry that is 'done'")
+        end
+          .to raise_error(StandardError)
+          .with_message("You can't perform this on an inquiry that is 'done'")
       end
     end
   end
-
 end
