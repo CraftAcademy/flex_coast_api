@@ -15,10 +15,6 @@ RSpec.describe Inquiry, type: :model do
         .of_type(:integer)
     }
     it {
-      is_expected.to have_db_column(:flexible)
-        .of_type(:integer)
-    }
-    it {
       is_expected.to have_db_column(:started_email_sent)
         .of_type(:boolean)
     }
@@ -47,13 +43,6 @@ RSpec.describe Inquiry, type: :model do
     end
   end
 
-  describe 'Flexible' do
-    it {
-      is_expected.to define_enum_for(:flexible)
-        .with_values({ yes: 1, no: 2, mixed: 3 })
-    }
-  end
-
   describe 'Validations' do
     it { is_expected.to validate_presence_of :email }
   end
@@ -61,7 +50,7 @@ RSpec.describe Inquiry, type: :model do
   describe 'Office type' do
     it {
       is_expected.to define_enum_for(:office_type)
-        .with_values({ office: 1, open_space: 2, combined: 3 })
+        .with_values({ office_space: 1, office_room: 2, fixed_space: 3, flexible_space: 4 })
     }
   end
 

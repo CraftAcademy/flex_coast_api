@@ -21,7 +21,7 @@ RSpec.describe 'GET /api/inquiries', type: :request do
     end
 
     it 'is expected to include the inquiry\'s office type' do
-      expect(response_json['inquiries'].first['office_type']).to eq 'office'
+      expect(response_json['inquiries'].first['office_type']).to eq 'office_space'
     end
 
     it 'is expected to include the inquiry\'s status type' do
@@ -34,10 +34,6 @@ RSpec.describe 'GET /api/inquiries', type: :request do
 
     it 'is expected to include the inquiry\'s email' do
       expect(response_json['inquiries'].first['email']).to eq 'mrfake@fake.com'
-    end
-
-    it 'is expected to include the inquiry\'s flexibility preference' do
-      expect(response_json['inquiries'].first['flexible']).to eq 'yes'
     end
 
     it 'is expected to include the inquiry\'s start date' do

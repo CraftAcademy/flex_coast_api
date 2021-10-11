@@ -7,11 +7,10 @@ RSpec.describe 'POST /api/inquiries', type: :request do
              params: {
                inquiry: {
                  size: 1,
-                 office_type: 'office',
+                 office_type: 'office_space',
                  inquiry_status: 'pending',
                  peers: 'Yes',
                  email: 'example@example.com',
-                 flexible: 'yes',
                  start_date: 'now',
                  phone: '0707123456',
                  locations: ['Gothenburg City', 'Southside'],
@@ -55,7 +54,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
           end
 
           it 'office type' do
-            expect(mail_delivery[0].body).to include('office')
+            expect(mail_delivery[0].body).to include('office_space')
           end
 
           it 'peers' do
@@ -64,10 +63,6 @@ RSpec.describe 'POST /api/inquiries', type: :request do
 
           it 'email' do
             expect(mail_delivery[0].body).to include('example@example.com')
-          end
-
-          it 'flexible' do
-            expect(mail_delivery[0].body).to include('yes')
           end
 
           it 'start date' do
@@ -105,12 +100,11 @@ RSpec.describe 'POST /api/inquiries', type: :request do
              params: {
                inquiry: {
                  size: 1,
-                 office_type: 'office',
+                 office_type: 'office_space',
                  inquiry_status: 'pending',
                  company: 'Craft',
                  peers: 'Yes',
                  email: '',
-                 flexible: 'yes',
                  start_date: 'now',
                  phone: '0707123456',
                  locations: ['Gothenburg City', 'Southside']

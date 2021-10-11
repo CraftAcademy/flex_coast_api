@@ -66,7 +66,6 @@ module HubSpotService
     <li>Office type: #{inquiry.office_type}</li>
     <li>Peers: #{inquiry.peers}</li>
     <li>Email: #{inquiry.email}</li>
-    <li>Flexible: #{inquiry.flexible}</li>
     <li>Phone: #{inquiry.phone}</li>
     </ul>
     Locations: #{locations}"

@@ -48,9 +48,8 @@ class Inquiry < ApplicationRecord
 
   after_create :send_notifications
 
-  enum office_type: { office: 1, open_space: 2, combined: 3 }
+  enum office_type: { office_space: 1, office_room: 2, fixed_space: 3, flexible_space: 4 }
   enum inquiry_status: { pending: 1, started: 2, done: 3 }
-  enum flexible: { yes: 1, no: 2, mixed: 3 }
   enum start_date: { now: 1, quarter: 2, unsure: 3 }
 
   belongs_to :broker, class_name: 'User', optional: true
