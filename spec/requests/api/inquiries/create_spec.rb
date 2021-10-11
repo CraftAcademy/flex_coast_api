@@ -7,7 +7,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
              params: {
                inquiry: {
                  size: 1,
-                 office_type: 'office',
+                 office_type: 'office_room',
                  inquiry_status: 'pending',
                  peers: 'Yes',
                  email: 'example@example.com',
@@ -105,7 +105,7 @@ RSpec.describe 'POST /api/inquiries', type: :request do
              params: {
                inquiry: {
                  size: 1,
-                 office_type: 'office',
+                 office_type: 'office_room',
                  inquiry_status: 'pending',
                  company: 'Craft',
                  peers: 'Yes',
