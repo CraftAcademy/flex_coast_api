@@ -1,5 +1,5 @@
 class Inquiries::IndexSerializer < ActiveModel::Serializer
-  attributes :id, :size, :email, :phone, :office_type, :inquiry_status, :peers, :flexible, :locations, :start_date, :inquiry_date, :broker, :language
+  attributes :id, :size, :email, :phone, :office_type, :inquiry_status, :peers, :locations, :start_date, :inquiry_date, :broker, :language
   has_many :notes, serializer: Notes::Serializer
 
   def inquiry_date

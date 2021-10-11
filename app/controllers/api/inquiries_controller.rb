@@ -45,7 +45,7 @@ class Api::InquiriesController < ApplicationController
   private
 
   def cast_boolean
-    if params[:inquiry][:officeProvider] 
+    if params[:inquiry][:officeProvider]
       @office_provider_inquiry = ActiveModel::Type::Boolean.new.cast(params[:inquiry][:officeProvider])
     end
   end
@@ -55,8 +55,8 @@ class Api::InquiriesController < ApplicationController
   end
 
   def inquiry_params
-    params.require(:inquiry).permit(:size, :office_type, :inquiry_status, :peers, :email, :flexible,
-                                      :phone, :start_date, :language, locations: [])
+    params.require(:inquiry).permit(:size, :office_type, :inquiry_status, :peers, :email,
+                                    :phone, :start_date, :language, locations: [])
   end
 
   def rescue_from_standard_error(error)
